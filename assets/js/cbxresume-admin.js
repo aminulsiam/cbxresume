@@ -12,27 +12,12 @@
             var $this = $(this);
             var $busy = parseInt($this.data('busy'));
 
-            var $last_count_val = cbxresumeLastCount("education");
+            var $class = "education";
 
-            if ($busy == 0) {
-                $this.data('busy', 1);
+            var $last_count_val = cbxresumeSectionLastCount($class);
 
-                // This does the ajax request
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: cbxresume_admin.ajaxurl,
-                    data: {
-                        'action': 'cbxresume_resume_edit_add_education',
-                        'last_count': $last_count_val
-                    },
-                    success: function (data) {
-                        $(".cbxresume_educations").append(data.field);
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
 
-                        $this.data('busy', 0);
-                    }
-                });
-            }
         }); // end of education add functionality
 
 
@@ -42,7 +27,7 @@
 
             $(this).closest('.cbxresume_education').remove();
         });
-        //-------------  end of education section
+        //-------------  end of education section ---------------- //
 
 
         // Add Experience by Ajax Request
@@ -52,27 +37,11 @@
             var $this = $(this);
             var $busy = parseInt($this.data('busy'));
 
-            var $last_count_val = cbxresumeLastCount("experience");
+            var $class = "experience";
 
-            if ($busy == 0) {
-                $this.data('busy', 1);
+            var $last_count_val = cbxresumeSectionLastCount($class);
 
-                // This does the ajax request
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: cbxresume_admin.ajaxurl,
-                    data: {
-                        'action': 'cbxresume_resume_edit_add_experience',
-                        'last_count': $last_count_val
-                    },
-                    success: function (data) {
-                        $(".cbxresume_experiences").append(data.field);
-
-                        $this.data('busy', 0);
-                    }
-                });
-            }
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
 
         }); // end of experience add functionality
 
@@ -86,8 +55,49 @@
         // end of experience section
 
 
-        // cbxresume last count method
-        function cbxresumeLastCount($class_last_count) {
+        /**
+         * Sending Ajax Request for making all kind of resume fields.
+         *
+         * @param $this
+         * @param $class
+         * @param $last_count_val
+         * @param $busy
+         *
+         * @return resume fields
+         */
+
+        function getFieldByAjaxReq($this, $class, $last_count_val, $busy) {
+
+            if ($busy == 0) {
+                $this.data('busy', 1);
+
+                // This does the ajax request
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: cbxresume_admin.ajaxurl,
+                    data: {
+                        'action': 'cbxresume_resume_edit_add_' + $class + '',
+                        'last_count': $last_count_val
+                    },
+                    success: function (data) {
+                        $('.cbxresume_' + $class + 's').append(data.field);
+
+                        $this.data('busy', 0);
+                    }
+                });
+            }
+
+        } // end method getFieldByAjaxReq
+
+
+        /**
+         * Find the last count of every resume section.
+         *
+         * @param $class_last_count
+         * @returns {number}
+         */
+        function cbxresumeSectionLastCount($class_last_count) {
 
             var $last_count = $('.cbxresume_' + $class_last_count + '_last_count');
 
@@ -99,7 +109,7 @@
 
             return $last_count_val;
 
-        } // end method cbxresumeLastcount
+        } // end method cbxresumeSectionLastCount
 
 
     });
