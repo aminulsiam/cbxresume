@@ -174,7 +174,7 @@ class CBXResume {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new CbxResume_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new CBXResume_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'create_admin_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
@@ -189,6 +189,9 @@ class CBXResume {
 
 		$this->loader->add_action('wp_ajax_cbxresume_resume_edit_add_experience',$plugin_admin,
 			'cbxresume_resume_edit_add_experience');
+
+		$this->loader->add_action('wp_ajax_cbxresume_resume_edit_add_language',$plugin_admin,
+			'cbxresume_resume_edit_add_language');
 
 	}
 

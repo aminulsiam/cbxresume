@@ -55,6 +55,33 @@
         // end of experience section
 
 
+
+        // Add language by Ajax Request
+        $(".cbxresume_section_language").on('click', '.cbxresume_language_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "language";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of experience add functionality
+
+
+        // remove experience field
+        $('.cbxresume_section_language').on('click', '.cbxresume_language_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_language').remove();
+        });
+        // end of experience section
+
+
+
         /**
          * Sending Ajax Request for making all kind of resume fields.
          *
@@ -65,7 +92,6 @@
          *
          * @return resume fields
          */
-
         function getFieldByAjaxReq($this, $class, $last_count_val, $busy) {
 
             if ($busy == 0) {

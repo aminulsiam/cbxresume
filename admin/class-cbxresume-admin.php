@@ -20,7 +20,7 @@
  * @subpackage CBXBusinessHours/admin
  * @author     Codeboxr <info@codeboxr.com>
  */
-class CbxResume_Admin {
+class CBXResume_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -150,6 +150,11 @@ class CbxResume_Admin {
 	 * Create admin menu for this plugin .
 	 */
 	public function create_admin_menu() {
+
+		if ( ! session_id() ) {
+			session_start();
+		}
+
 		$root_menu_hook = add_menu_page(
 			esc_html__( 'CBX Resumes', 'cbxresume' ),
 			esc_html__( 'CBX Resumes', 'cbxresume' ),
@@ -185,13 +190,12 @@ class CbxResume_Admin {
 	}
 
 	/**
-	 * Admin menu callback @function
+	 * Admin menu callback function
 	 *
-	 * This function gives the output of @cbxresume admin menu .
+	 * This function gives the output of cbxresume admin menu .
 	 *
 	 */
 	public function display_resume_listing_page() {
-
 
 		if ( isset( $_GET['view'] ) && $_GET['view'] == 'addedit' ) {
 			include( cbxresume_locate_template( 'admin/add.php' ) );
@@ -371,9 +375,7 @@ class CbxResume_Admin {
 
 
 	/**
-	 * @cbxresume_education
-	 *
-	 * Education @ajax request for making education field
+	 * Add new education template
 	 */
 	public function cbxresume_resume_edit_add_education() {
 		$output = array();
@@ -382,11 +384,11 @@ class CbxResume_Admin {
 
 		$field = '<div class="cbxresume_education">
 					<input type="text" name="cbxresume[education][' . $last_count_val . '][institute]"
-					 placeholder="school/university" />
-					 
-					<input type="text" name="cbxresume[education][' . $last_count_val . '][degree]" placeholder="degree" />
+					 placeholder="' . esc_html__( 'School/University', 'cbxresume' ) . '" />
+					<input type="text" name="cbxresume[education][' . $last_count_val . '][degree]" 
+					placeholder="' . esc_html__( 'Degree', 'cbxresume' ) . '" />
 					<input type="text" name="cbxresume[education][' . $last_count_val . '][field]" 
-					placeholder="field of study" />';
+					placeholder="' . esc_html__( 'Field', 'cbxresume' ) . '" />';
 
 
 		$field .= '<select name="cbxresume[education][' . $last_count_val . '][from]">
@@ -410,9 +412,9 @@ class CbxResume_Admin {
 
 		$field .= '<input type="text" name="cbxresume[education][' . $last_count_val . '][grade]" placeholder="grade" />
 					<input type="text" name="cbxresume[education][' . $last_count_val . '][activity]"
-					 placeholder="activities and socities" />
+					 placeholder="' . esc_html__( 'Activity', 'cbxresume' ) . '" />
 					<input type="text" name="cbxresume[education][' . $last_count_val . '][description]"
-					 placeholder="description" />
+					 placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '" />
 					<a href="#" class="button cbxresume_education_remove"><span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>' . esc_html__( 'Remove',
 				'cbxresume' ) . '</a>
 					</div>';
@@ -426,9 +428,7 @@ class CbxResume_Admin {
 
 
 	/**
-	 * @cbxresume_experience
-	 *
-	 * Experience @ajax request for making experience field
+	 * Add new experience template
 	 */
 	public function cbxresume_resume_edit_add_experience() {
 		$output = array();
@@ -437,13 +437,16 @@ class CbxResume_Admin {
 
 		$field = '<div class="cbxresume_experience">';
 
-		$field .= '<input type="text" name="cbxresume[experience][' . $last_count_val . '][title]" placeholder="Title" /> 
-				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][company]" placeholder="Company 
-				   Name" /> <input type="text" name="cbxresume[experience][' . $last_count_val . '][start_date]" /> 
+		$field .= '<input type="text" name="cbxresume[experience][' . $last_count_val . '][title]" 
+				   placeholder="' . esc_html__( 'Title/Designation', 'cbxresume' ) . '" /> 
+				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][company]" 
+				   placeholder="' . esc_html__( 'Company name', 'cbxresume' ) . '" />
+				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][start_date]" /> 
 		           <input type="text" name="cbxresume[experience][' . $last_count_val . '][description]" 
-		           placeholder="Discription"/> <a href="#" class="button cbxresume_experience_remove"><span class="dashicons 
-		           dashicons-trash" style="margin-top: 3px;color: red;"></span>' . esc_html__( 'Remove',
-				'cbxresume' ) . '</a>';
+		           placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '"/> 
+		           <a href="#" class="button cbxresume_experience_remove">
+		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
 
 		$field .= '</div>';
 
@@ -454,6 +457,33 @@ class CbxResume_Admin {
 		exit();
 
 	} // end method cbxresume_resume_edit_add_experience
+
+
+	/**
+	 * Add new language template
+	 */
+	public function cbxresume_resume_edit_add_language(){
+		$output = array();
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$field = '<div class="cbxresume_language">';
+
+		$field .= '<input type="text" name="cbxresume[language][' . $last_count_val . ']" 
+				   placeholder="' . esc_html__( 'Language', 'cbxresume' ) . '" /> 
+				   
+		           <a href="#" class="button cbxresume_language_remove">
+		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		$output['field'] = $field;
+
+		echo json_encode( $output );
+
+		exit();
+	}
 
 
 	/**
