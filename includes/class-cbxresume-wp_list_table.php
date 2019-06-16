@@ -174,7 +174,7 @@ class CBXResume_List_Table extends WP_List_Table {
 			if ( $where_sql != '' ) {
 				$where_sql .= ' AND ';
 			}
-			$where_sql .= $wpdb->prepare( " name LIKE '%%%s%%' ", $search );
+			$where_sql .= $wpdb->prepare( " resume LIKE '%%%s%%' ", $search );
 		}
 
 
@@ -232,7 +232,7 @@ class CBXResume_List_Table extends WP_List_Table {
 
 	/**
 	 * Generates content for a single row of the table
-	 *
+	 *toplevel_page_cbxresumes
 	 * @since  3.1.0
 	 * @access public
 	 *

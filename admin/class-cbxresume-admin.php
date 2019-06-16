@@ -215,7 +215,6 @@ class CbxResume_Admin {
 
 			$page_url = admin_url( 'admin.php?page=cbxresumes&view=addedit' );
 
-
 			//check_admin_referer( 'cbxresume_token', 'cbxresume_nonce' );
 			if ( wp_verify_nonce( $_POST['cbxresume_nonce'], 'cbxresume_token' ) ) {
 
@@ -285,9 +284,9 @@ class CbxResume_Admin {
 
 
 					$data_format = array(
-						'%s', //name
-						'%d', //mod_by
-						'%s'  //mod_date
+						'%s', // weekdays
+						'%d', // mod_by
+						'%s'  // mod_date
 					);
 
 					$data_format = apply_filters( 'cbxresume_resume_data_format_before_update', $data_format,
@@ -298,7 +297,7 @@ class CbxResume_Admin {
 						do_action( 'cbxresume_resume_after_update', $data_safe, $resume_id );
 
 						$message    = array(
-							'text' => esc_html__( 'Store updated successfully', 'cbxresume' ),
+							'text' => esc_html__( 'Resume updated successfully', 'cbxresume' ),
 							'type' => 'success'
 						);
 						$messages[] = $message;
@@ -339,7 +338,7 @@ class CbxResume_Admin {
 						do_action( 'cbxresume_resume_after_insert', $data_safe, $resume_id );
 
 						$message = array(
-							'text' => esc_html__( 'Store added successfully', 'cbxresume' ),
+							'text' => esc_html__( 'Resume added successfully', 'cbxresume' ),
 							'type' => 'success'
 						);
 
@@ -359,8 +358,7 @@ class CbxResume_Admin {
 
 				}//end insert mode
 
-
-				$success_arr['messages']                        = $messages;
+				$success_arr['messages']                         = $messages;
 				$_SESSION['cbxresume_resume_validation_success'] = $success_arr;
 
 				$page_url = add_query_arg( array( 'id' => $resume_id, ), $page_url );
@@ -373,6 +371,8 @@ class CbxResume_Admin {
 
 
 	/**
+	 * @cbxresume_education
+	 *
 	 * Education @ajax request for making education field
 	 */
 	public function cbxresume_resume_edit_add_education() {
@@ -400,7 +400,7 @@ class CbxResume_Admin {
 
 
 		$field .= '<select name="cbxresume[education][' . $last_count_val . '][to]"><option value="">' . esc_html__(
-			'To', 'cbxresume' ) . '</option>';
+				'To', 'cbxresume' ) . '</option>';
 
 		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
 			$field .= '<option value="' . $i . '">' . $i . '</option>';
@@ -408,11 +408,10 @@ class CbxResume_Admin {
 
 		$field .= '</select>';
 
-
-		$field .= '<input type="text" name="cbxresume[education]['.$last_count_val.'][grade]" placeholder="grade" />
-					<input type="text" name="cbxresume[education]['.$last_count_val.'][activity]"
+		$field .= '<input type="text" name="cbxresume[education][' . $last_count_val . '][grade]" placeholder="grade" />
+					<input type="text" name="cbxresume[education][' . $last_count_val . '][activity]"
 					 placeholder="activities and socities" />
-					<input type="text" name="cbxresume[education]['.$last_count_val.'][description]"
+					<input type="text" name="cbxresume[education][' . $last_count_val . '][description]"
 					 placeholder="description" />
 					<a href="#" class="button cbxresume_education_remove"><span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>' . esc_html__( 'Remove',
 				'cbxresume' ) . '</a>
@@ -424,6 +423,37 @@ class CbxResume_Admin {
 
 		exit();
 	}//end method cbxresume_resume_edit_add_education
+
+
+	/**
+	 * @cbxresume_experience
+	 *
+	 * Experience @ajax request for making experience field
+	 */
+	public function cbxresume_resume_edit_add_experience() {
+		$output = array();
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$field = '<div class="cbxresume_experience">';
+
+		$field .= '<input type="text" name="cbxresume[experience][' . $last_count_val . '][title]" placeholder="Title" /> 
+				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][company]" placeholder="Company 
+				   Name" /> <input type="text" name="cbxresume[experience][' . $last_count_val . '][start_date]" /> 
+		           <input type="text" name="cbxresume[experience][' . $last_count_val . '][description]" 
+		           placeholder="Discription"/> <a href="#" class="button cbxresume_experience_remove"><span class="dashicons 
+		           dashicons-trash" style="margin-top: 3px;color: red;"></span>' . esc_html__( 'Remove',
+				'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		$output['field'] = $field;
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_experience
 
 
 	/**

@@ -187,6 +187,9 @@ class CBXResume {
 		$this->loader->add_action('wp_ajax_cbxresume_resume_edit_add_education',$plugin_admin,
 			'cbxresume_resume_edit_add_education');
 
+		$this->loader->add_action('wp_ajax_cbxresume_resume_edit_add_experience',$plugin_admin,
+			'cbxresume_resume_edit_add_experience');
+
 	}
 
 	/**
