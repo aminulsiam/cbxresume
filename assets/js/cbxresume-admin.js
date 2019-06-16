@@ -27,7 +27,7 @@
 
             $(this).closest('.cbxresume_education').remove();
         });
-        //-------------  end of education section ---------------- //
+        //-------------  end of experience section ---------------- //
 
 
         // Add Experience by Ajax Request
@@ -52,8 +52,7 @@
 
             $(this).closest('.cbxresume_experience').remove();
         });
-        // end of experience section
-
+        // end of experience section ------------------------------ //
 
 
         // Add language by Ajax Request
@@ -72,13 +71,40 @@
         }); // end of experience add functionality
 
 
-        // remove experience field
+        // remove language field
         $('.cbxresume_section_language').on('click', '.cbxresume_language_remove', function (e) {
             e.preventDefault();
 
             $(this).closest('.cbxresume_language').remove();
         });
-        // end of experience section
+        // end of language section -----------------------------//
+
+
+        // Add language by Ajax Request
+        $(".cbxresume_section_license").on('click', '.cbxresume_license_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "license";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of experience add functionality
+
+
+        // remove language field
+        $('.cbxresume_section_license').on('click', '.cbxresume_license_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_licence').remove();
+        });
+        // end of language section -----------------------------//
+
+
 
 
 

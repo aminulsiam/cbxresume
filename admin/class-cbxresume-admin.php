@@ -462,7 +462,7 @@ class CBXResume_Admin {
 	/**
 	 * Add new language template
 	 */
-	public function cbxresume_resume_edit_add_language(){
+	public function cbxresume_resume_edit_add_language() {
 		$output = array();
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
@@ -473,6 +473,39 @@ class CBXResume_Admin {
 				   placeholder="' . esc_html__( 'Language', 'cbxresume' ) . '" /> 
 				   
 		           <a href="#" class="button cbxresume_language_remove">
+		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		$output['field'] = $field;
+
+		echo json_encode( $output );
+
+		exit();
+	}
+
+
+	/**
+	 * Add new license and certificates template
+	 */
+	public function cbxresume_resume_edit_add_license() {
+		$output = array();
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$field = '<div class="cbxresume_licence_certificates">';
+
+		$field .= '<input type="text" name="cbxresume[licence][' . $last_count_val . '][name]" 
+				   placeholder="' . esc_html__( 'Name', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[licence][' . $last_count_val . '][issuing_organization]" 
+				   placeholder="' . esc_html__( 'Issuing Organization', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[licence][' . $last_count_val . '][issue_date]" 
+				   placeholder="' . esc_html__( 'Issue date', 'cbxresume' ) . '" /> 
+				   
+		           <a href="#" class="button cbxresume_licence_remove">
 		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
 		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
 

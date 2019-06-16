@@ -183,15 +183,22 @@ class CBXResume {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		
-		$this->loader->add_action('wp_ajax_cbxresume_resume_edit_add_education',$plugin_admin,
-			'cbxresume_resume_edit_add_education');
 
-		$this->loader->add_action('wp_ajax_cbxresume_resume_edit_add_experience',$plugin_admin,
-			'cbxresume_resume_edit_add_experience');
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_experience', $plugin_admin,
+			'cbxresume_resume_edit_add_experience' );
 
-		$this->loader->add_action('wp_ajax_cbxresume_resume_edit_add_language',$plugin_admin,
-			'cbxresume_resume_edit_add_language');
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_education', $plugin_admin,
+			'cbxresume_resume_edit_add_education' );
+
+
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_license', $plugin_admin,
+			'cbxresume_resume_edit_add_license' );
+
+
+
+
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_language', $plugin_admin,
+			'cbxresume_resume_edit_add_language' );
 
 	}
 

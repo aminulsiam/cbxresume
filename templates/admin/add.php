@@ -41,7 +41,6 @@ if ( isset( $_GET['id'] ) && intval( $_GET['id'] ) > 0 ) {
 
 	$cbxresume_data = CBXResumeHelper::getCbxresumeData( $wpdb, $resume_id );
 
-	write_log($cbxresume_data);
 }
 
 
@@ -370,7 +369,7 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                             </p>
 
 											<?php
-											// Get education last count from db
+											// Get language last count from db
 											$language_last_count = isset( $cbxresume_data['language_last_count'] ) ?
 												intval( $cbxresume_data['language_last_count'] ) : 0;
 											?>
@@ -380,7 +379,79 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                                    class="cbxresume_language_last_count"
                                                    value="<?php echo esc_attr( $language_last_count ); ?>"/>
 
-                                        </div> <!-- end cbxresume experience section -->
+                                        </div> <!-- end cbxresume language section -->
+
+
+										<?php
+
+										$cbxresume_license = isset( $cbxresume_data['licence'] ) ?
+											$cbxresume_data['licence'] : array();
+
+										if ( ! is_array( $cbxresume_license ) ) {
+											$cbxresume_license = array();
+										}
+										?>
+
+
+                                        <h2><?php echo esc_html__( 'Add License', 'cbxresume' ); ?></h2>
+                                        <div class="cbxresume_section cbxresume_section_license">
+
+                                            <div class="cbxresume_licenses">
+												<?php
+												if ( sizeof( $cbxresume_license ) > 0 ) {
+													foreach ( $cbxresume_license as $key => $license ) {
+														?>
+                                                        <div class="cbxresume_license">
+                                                            <input type="text"
+                                                                   name="cbxresume[license][<?php echo
+															       esc_attr( $key ); ?>]"
+                                                                   value="<?php echo esc_attr__( $license['name'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[license][<?php echo
+															       esc_attr( $key ); ?>]"
+                                                                   value="<?php echo esc_attr__(
+                                                                           $license['issuing_organization'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[license][<?php echo
+															       esc_attr( $key ); ?>]"
+                                                                   value="<?php echo esc_attr__( $license['issue_date']
+                                                                   ); ?>"/>
+
+                                                            <a href="#" class="button cbxresume_license_remove">
+                                                                    <span class="dashicons dashicons-trash"
+                                                                          style="margin-top: 3px;margin-bottom :10px;
+                                                                            color: red;"></span><?php echo esc_html__(
+																	'Remove', 'cbxresume' ); ?></a>
+                                                        </div>
+														<?php
+													}
+												}
+												?>
+                                            </div>
+
+                                            <!-- Add new Language button -->
+                                            <p>
+                                                <a data-busy="0" href="#" class="button cbxresume_license_add">
+                                                    <span class="dashicons dashicons-plus-alt" style="margin-top:
+                                                    3px;color: #0baf63;"></span>
+													<?php echo esc_html__( 'Add License', 'cbxresume' ); ?>
+                                                </a>
+                                            </p>
+
+											<?php
+											// Get language last count from db
+											$language_last_count = isset( $cbxresume_data['license_last_count'] ) ?
+												intval( $cbxresume_data['language_last_count'] ) : 0;
+											?>
+
+                                            <!-- cbx resume last count field -->
+                                            <input type="hidden" name="cbxresume[license_last_count]"
+                                                   class="cbxresume_license_last_count"
+                                                   value="<?php echo esc_attr( $language_last_count ); ?>"/>
+
+                                        </div> <!-- end cbxresume language section -->
 
 
                                     </div> <!-- end main section -->
