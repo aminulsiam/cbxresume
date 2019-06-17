@@ -54,7 +54,7 @@ class CBXResumeHelper {
 
 
 	/**
-	 * @display wp list table
+	 * Display wp list table
 	 */
 	public static function displayResumeTableList() {
 
@@ -78,25 +78,25 @@ class CBXResumeHelper {
             <form id="entry-table" method="GET">
                 <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>"/>
 				<?php
-				$cbxresume_list_table->prepare_items();
-				$cbxresume_list_table->search_box( 'search', 'search_id' );
-				$cbxresume_list_table->display();
+                    $cbxresume_list_table->prepare_items();
+                    $cbxresume_list_table->search_box( 'search', 'search_id' );
+                    $cbxresume_list_table->display();
 				?>
             </form>
         </div>
 		<?php
-	} // end method showResumeTableList
+	} // end method displayResumeTableList
 
 
 	/**
-     * Get resume data from database
-     *
-	 * @param $wpdb
-	 * @param @int $resume_id
+	 * Get resume data from database
+	 *
+	 * @param $wpdb , global properties of WP
+	 * @param @int $resume_id, Get resume data by this variable
 	 *
 	 * @return array
 	 */
-	public static function getCbxresumeData($wpdb,$resume_id){
+	public static function getCbxresumeData( $wpdb, $resume_id ) {
 
 		$resume_table = $wpdb->prefix . "cbxresumes";
 
@@ -106,7 +106,7 @@ class CBXResumeHelper {
 		$cbxresume_educations = maybe_unserialize( $data['resume'] );
 
 		return $cbxresume_educations;
-    } // end method getResumeData
+	} // end method getCbxresumeData
 
 
 }//end class CBXResumeHelper

@@ -494,18 +494,18 @@ class CBXResume_Admin {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
-		$field = '<div class="cbxresume_licence_certificates">';
+		$field = '<div class="cbxresume_license">';
 
-		$field .= '<input type="text" name="cbxresume[licence][' . $last_count_val . '][name]" 
+		$field .= '<input type="text" name="cbxresume[license][' . $last_count_val . '][name]" 
 				   placeholder="' . esc_html__( 'Name', 'cbxresume' ) . '" /> 
 				   
-				   <input type="text" name="cbxresume[licence][' . $last_count_val . '][issuing_organization]" 
+				   <input type="text" name="cbxresume[license][' . $last_count_val . '][issuing_organization]" 
 				   placeholder="' . esc_html__( 'Issuing Organization', 'cbxresume' ) . '" /> 
 				   
-				   <input type="text" name="cbxresume[licence][' . $last_count_val . '][issue_date]" 
+				   <input type="text" name="cbxresume[license][' . $last_count_val . '][issue_date]" 
 				   placeholder="' . esc_html__( 'Issue date', 'cbxresume' ) . '" /> 
 				   
-		           <a href="#" class="button cbxresume_licence_remove">
+		           <a href="#" class="button cbxresume_license_remove">
 		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
 		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
 

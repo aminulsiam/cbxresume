@@ -80,7 +80,7 @@
         // end of language section -----------------------------//
 
 
-        // Add language by Ajax Request
+        // Add license by Ajax Request
         $(".cbxresume_section_license").on('click', '.cbxresume_license_add', function (e) {
             e.preventDefault();
 
@@ -100,16 +100,14 @@
         $('.cbxresume_section_license').on('click', '.cbxresume_license_remove', function (e) {
             e.preventDefault();
 
-            $(this).closest('.cbxresume_licence').remove();
+            $(this).closest('.cbxresume_license').remove();
         });
-        // end of language section -----------------------------//
-
-
+        // end of license section -----------------------------//
 
 
 
         /**
-         * Sending Ajax Request for making all kind of resume fields.
+         * Sending Ajax Request to making all kind of resume fields.
          *
          * @param $this
          * @param $class
