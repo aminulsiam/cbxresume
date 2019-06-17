@@ -382,48 +382,12 @@ class CBXResume_Admin {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
-		$field = '<div class="cbxresume_education">
-					<input type="text" name="cbxresume[education][' . $last_count_val . '][institute]"
-					 placeholder="' . esc_html__( 'School/University', 'cbxresume' ) . '" />
-					<input type="text" name="cbxresume[education][' . $last_count_val . '][degree]" 
-					placeholder="' . esc_html__( 'Degree', 'cbxresume' ) . '" />
-					<input type="text" name="cbxresume[education][' . $last_count_val . '][field]" 
-					placeholder="' . esc_html__( 'Field', 'cbxresume' ) . '" />';
-
-
-		$field .= '<select name="cbxresume[education][' . $last_count_val . '][from]">
-					<option value="">' . esc_html__( 'From', 'cbxresume' ) . '</option>';
-
-		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-			$field .= '<option value="' . $i . '">' . $i . '</option>';
-		}
-
-		$field .= '</select>';
-
-
-		$field .= '<select name="cbxresume[education][' . $last_count_val . '][to]"><option value="">' . esc_html__(
-				'To', 'cbxresume' ) . '</option>';
-
-		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-			$field .= '<option value="' . $i . '">' . $i . '</option>';
-		}
-
-		$field .= '</select>';
-
-		$field .= '<input type="text" name="cbxresume[education][' . $last_count_val . '][grade]" placeholder="grade" />
-					<input type="text" name="cbxresume[education][' . $last_count_val . '][activity]"
-					 placeholder="' . esc_html__( 'Activity', 'cbxresume' ) . '" />
-					<input type="text" name="cbxresume[education][' . $last_count_val . '][description]"
-					 placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '" />
-					<a href="#" class="button cbxresume_education_remove"><span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>' . esc_html__( 'Remove',
-				'cbxresume' ) . '</a>
-					</div>';
-
-		$output['field'] = $field;
+		$output['field'] = CBXResumeHelper::resumeAdd_Education_Field( $last_count_val );
 
 		echo json_encode( $output );
 
 		exit();
+		
 	}//end method cbxresume_resume_edit_add_education
 
 
@@ -435,22 +399,7 @@ class CBXResume_Admin {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
-		$field = '<div class="cbxresume_experience">';
-
-		$field .= '<input type="text" name="cbxresume[experience][' . $last_count_val . '][title]" 
-				   placeholder="' . esc_html__( 'Title/Designation', 'cbxresume' ) . '" /> 
-				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][company]" 
-				   placeholder="' . esc_html__( 'Company name', 'cbxresume' ) . '" />
-				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][start_date]" /> 
-		           <input type="text" name="cbxresume[experience][' . $last_count_val . '][description]" 
-		           placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '"/> 
-		           <a href="#" class="button cbxresume_experience_remove">
-		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
-		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
-
-		$field .= '</div>';
-
-		$output['field'] = $field;
+		$output['field'] = CBXResumeHelper::resumeAdd_Experience_Field( $last_count_val );
 
 		echo json_encode( $output );
 
@@ -467,23 +416,13 @@ class CBXResume_Admin {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
-		$field = '<div class="cbxresume_language">';
-
-		$field .= '<input type="text" name="cbxresume[language][' . $last_count_val . ']" 
-				   placeholder="' . esc_html__( 'Language', 'cbxresume' ) . '" /> 
-				   
-		           <a href="#" class="button cbxresume_language_remove">
-		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
-		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
-
-		$field .= '</div>';
-
-		$output['field'] = $field;
+		$output['field'] = CBXResumeHelper::resumeAdd_Language_Field( $last_count_val );
 
 		echo json_encode( $output );
 
 		exit();
-	}
+
+	} // end method cbxresume_resume_edit_add_language
 
 
 	/**
@@ -494,28 +433,12 @@ class CBXResume_Admin {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
-		$field = '<div class="cbxresume_license">';
-
-		$field .= '<input type="text" name="cbxresume[license][' . $last_count_val . '][name]" 
-				   placeholder="' . esc_html__( 'Name', 'cbxresume' ) . '" /> 
-				   
-				   <input type="text" name="cbxresume[license][' . $last_count_val . '][issuing_organization]" 
-				   placeholder="' . esc_html__( 'Issuing Organization', 'cbxresume' ) . '" /> 
-				   
-				   <input type="text" name="cbxresume[license][' . $last_count_val . '][issue_date]" 
-				   placeholder="' . esc_html__( 'Issue date', 'cbxresume' ) . '" /> 
-				   
-		           <a href="#" class="button cbxresume_license_remove">
-		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
-		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
-
-		$field .= '</div>';
-
-		$output['field'] = $field;
+		$output['field'] = CBXResumeHelper::resumeAdd_License_Field( $last_count_val );
 
 		echo json_encode( $output );
 
 		exit();
+
 	} // end method cbxresume_resume_edit_add_license
 
 
@@ -527,72 +450,31 @@ class CBXResume_Admin {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
-		$field = '<div class="cbxresume_volunteer">';
-
-		$field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][organization]" 
-				   placeholder="' . esc_html__( 'Organization', 'cbxresume' ) . '" /> 
-				   
-				   <input type="text" name="cbxresume[volunteer][' . $last_count_val . '][role]" 
-				   placeholder="' . esc_html__( 'Role', 'cbxresume' ) . '" /> 
-				   
-				   <input type="text" name="cbxresume[volunteer][' . $last_count_val . '][cause]" 
-				   placeholder="' . esc_html__( 'Cause', 'cbxresume' ) . '" />';
-
-		$field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][from]">
-					<option value="">' . esc_html__( 'From', 'cbxresume' ) . '</option>';
-
-		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-			$field .= '<option value="' . $i . '">' . $i . '</option>';
-		}
-
-		$field .= '</select>';
-
-		$field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][to]"><option value="">' . esc_html__(
-				'To', 'cbxresume' ) . '</option>';
-
-		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-			$field .= '<option value="' . $i . '">' . $i . '</option>';
-		}
-
-		$field .= '</select>';
-
-		$field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][description]" 
-				   placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '" />  
-				   
-		           <a href="#" class="button cbxresume_volunteer_remove">
-		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
-		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
-
-		$field .= '</div>';
-
-		$output['field'] = $field;
+		$output['field'] = CBXResumeHelper::resumeAdd_Volunteer_Field($last_count_val);
 
 		echo json_encode( $output );
 
 		exit();
+
 	} // end method cbxresume_resume_edit_add_volunteer
 
 
 	/**
 	 * Add new skill template
 	 */
-	public function cbxresume_resume_edit_add_skill(){
+	public function cbxresume_resume_edit_add_skill() {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
 		$output = array();
 
-		$output['field'] = CBXResumeHelper::cbxresumeAddSkillField($last_count_val);
+		$output['field'] = CBXResumeHelper::resumeAdd_Skill_Field( $last_count_val );
 
 		echo json_encode( $output );
 
 		exit();
 
 	} // end method cbxresume_resume_edit_add_skill
-
-
-
-
 
 
 	/**
@@ -609,8 +491,8 @@ class CBXResume_Admin {
 			$this->version, 'all' );
 
 		if ( $page == 'cbxresume_settings' ) {
-			wp_register_style( 'select2', plugin_dir_url( __FILE__ ) . '../assets/select2/css/select2.min.css', array(),
-				$this->version );
+			wp_register_style( 'select2', plugin_dir_url( __FILE__ ) . '../assets/select2/css/select2.min.css',
+				array(), $this->version );
 
 			//wp_register_style( 'jquery-timepicker', plugin_dir_url( __FILE__ ) . '../assets/css/jquery.timepicker.min.css', array(), $this->version,'all' );
 

@@ -39,9 +39,9 @@ if ( isset( $_GET['id'] ) && intval( $_GET['id'] ) > 0 ) {
 
 	$resume_id = absint( $_GET['id'] );
 
-	$cbxresume_data = CBXResumeHelper::getCbxresumeData( $wpdb, $resume_id );
+	$cbxresume_data = CBXResumeHelper::getResumeData( $wpdb, $resume_id );
 
-	write_log($cbxresume_data);
+	//write_log( $cbxresume_data );
 
 }
 
@@ -321,8 +321,25 @@ if ( sizeof( $invalid_fields ) > 0 ) {
 
                                         <!-- cbxresume language -->
 										<?php
+
+										$language_proficiency = array(
+											'elementary'           => esc_html__( 'Elementary proficiency',
+												'cbxresume' ),
+											'limited_working'      => esc_html__( 'Limited working proficiency',
+												'cbxresume' ),
+											'professional_working' => esc_html__( 'Professional working proficiency',
+												'cbxresume' ),
+											'full_professional'    => esc_html__( 'Full professional proficiency',
+												'cbxresume' ),
+											'native_or_bilingual'  => esc_html__( 'Native or bilingual proficiency',
+												'cbxresume' ),
+										);
+
+
 										$cbxresume_language = isset( $cbxresume_data['language'] ) ?
 											$cbxresume_data['language'] : array();
+
+										//write_log($cbxresume_language);
 
 										if ( ! is_array( $cbxresume_language ) ) {
 											$cbxresume_language = array();
@@ -340,8 +357,26 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                                         <div class="cbxresume_language">
                                                             <input type="text"
                                                                    name="cbxresume[language][<?php echo
-															       esc_attr( $key ); ?>]"
-                                                                   value="<?php echo esc_attr__( $language ); ?>"/>
+															       esc_attr( $key ); ?>][language_name]"
+                                                                   value="<?php echo esc_attr__(
+																       $language['language_name'] ); ?>"/>
+
+
+                                                            <select name="cbxresume[language][<?php echo
+															esc_attr( $key ); ?>][language_proficiency]">
+
+																<?php
+																foreach ( $language_proficiency as $p => $p_language ) {
+																	?>
+                                                                    <option value="<?php echo esc_attr( $p ); ?>"
+																		<?php selected( $language['language_proficiency'],
+																			$p ); ?>>
+
+																		<?php echo $p_language; ?>
+                                                                    </option>
+																<?php } ?>
+                                                            </select>
+
 
                                                             <a href="#" class="button cbxresume_language_remove">
                                                                     <span class="dashicons dashicons-trash"
@@ -451,84 +486,84 @@ if ( sizeof( $invalid_fields ) > 0 ) {
 
 
                                         <!-- cbxresume volunteer section -->
-	                                    <?php
-	                                    $cbxresume_volunteer = isset( $cbxresume_data['volunteer'] ) ?
-		                                    $cbxresume_data['volunteer'] : array();
+										<?php
+										$cbxresume_volunteer = isset( $cbxresume_data['volunteer'] ) ?
+											$cbxresume_data['volunteer'] : array();
 
-	                                    if ( ! is_array( $cbxresume_volunteer ) ) {
-		                                    $cbxresume_volunteer = array();
-	                                    }
-	                                    ?>
+										if ( ! is_array( $cbxresume_volunteer ) ) {
+											$cbxresume_volunteer = array();
+										}
+										?>
 
                                         <h2><?php echo esc_html__( 'Volunteer', 'cbxresume' ); ?></h2>
                                         <div class="cbxresume_section cbxresume_section_volunteer">
 
                                             <div class="cbxresume_volunteers">
-			                                    <?php
-			                                    if ( sizeof( $cbxresume_volunteer ) > 0 ) {
-				                                    foreach ( $cbxresume_volunteer as $key => $volunteer ) {
-					                                    ?>
+												<?php
+												if ( sizeof( $cbxresume_volunteer ) > 0 ) {
+													foreach ( $cbxresume_volunteer as $key => $volunteer ) {
+														?>
                                                         <div class="cbxresume_volunteer">
                                                             <input type="text"
                                                                    name="cbxresume[volunteer][<?php echo
-						                                           esc_attr( $key ); ?>][organization]"
+															       esc_attr( $key ); ?>][organization]"
                                                                    value="<?php echo esc_attr__(
-	                                                                   $volunteer['organization'] ); ?>"/>
+																       $volunteer['organization'] ); ?>"/>
 
                                                             <input type="text"
                                                                    name="cbxresume[volunteer][<?php echo
-						                                           esc_attr( $key ); ?>][role]"
+															       esc_attr( $key ); ?>][role]"
                                                                    value="<?php echo esc_attr__(
-	                                                                   $volunteer['role'] ); ?>"/>
+																       $volunteer['role'] ); ?>"/>
 
                                                             <input type="text"
                                                                    name="cbxresume[volunteer][<?php echo
-						                                           esc_attr( $key ); ?>][cause]"
+															       esc_attr( $key ); ?>][cause]"
                                                                    value="<?php echo esc_attr__(
-	                                                                   $volunteer['cause'] ); ?>"/>
+																       $volunteer['cause'] ); ?>"/>
 
 
                                                             <select name="cbxresume[volunteer][<?php echo
-	                                                        esc_attr( $key ); ?>][from]">
-		                                                        <?php
-		                                                        for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-			                                                        ?>
+															esc_attr( $key ); ?>][from]">
+																<?php
+																for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+																	?>
                                                                     <option value="<?php echo esc_attr( $i ) ?>"
-				                                                        <?php selected( $volunteer['from'], $i ); ?>>
-				                                                        <?php echo esc_html( $i ); ?>
+																		<?php selected( $volunteer['from'], $i ); ?>>
+																		<?php echo esc_html( $i ); ?>
                                                                     </option>
-		                                                        <?php } ?>
+																<?php } ?>
                                                             </select>
 
                                                             <select name="cbxresume[volunteer][<?php echo
-	                                                        esc_attr( $key ); ?>][to]">
-		                                                        <?php
-		                                                        for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-			                                                        ?>
+															esc_attr( $key ); ?>][to]">
+																<?php
+																for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+																	?>
                                                                     <option value="<?php echo esc_attr( $i ) ?>"
-				                                                        <?php selected( $volunteer['to'], $i ); ?>>
-				                                                        <?php echo esc_html( $i ); ?>
+																		<?php selected( $volunteer['to'], $i ); ?>>
+																		<?php echo esc_html( $i ); ?>
                                                                     </option>
-		                                                        <?php } ?>
+																<?php } ?>
                                                             </select>
 
                                                             <input type="text"
                                                                    name="cbxresume[volunteer][<?php echo
-	                                                               esc_attr( $key ); ?>][description]"
+															       esc_attr( $key ); ?>][description]"
                                                                    value="<?php echo esc_attr__(
-		                                                               $volunteer['description'] ); ?>"/>
+																       $volunteer['description'] ); ?>"/>
 
 
                                                             <a href="#" class="button cbxresume_volunteer_remove">
                                                                     <span class="dashicons dashicons-trash"
                                                                           style="margin-top: 3px;margin-bottom :10px;
                                                                             color: red;"></span><?php echo esc_html__(
-								                                    'Remove', 'cbxresume' ); ?></a>
+																	'Remove', 'cbxresume' ); ?></a>
                                                         </div>
-					                                    <?php
-				                                    }
-			                                    }
-			                                    ?>
+														<?php
+													}
+												}
+												?>
                                             </div>
 
                                             <!-- Add new license button -->
@@ -536,15 +571,15 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                                 <a data-busy="0" href="#" class="button cbxresume_volunteer_add">
                                                     <span class="dashicons dashicons-plus-alt" style="margin-top:
                                                     3px;color: #0baf63;"></span>
-				                                    <?php echo esc_html__( 'Add Volunteer', 'cbxresume' ); ?>
+													<?php echo esc_html__( 'Add Volunteer', 'cbxresume' ); ?>
                                                 </a>
                                             </p>
 
-		                                    <?php
-		                                    // Get license last count from db
-		                                    $volunteer_last_count = isset( $cbxresume_data['volunteer_last_count'] ) ?
-			                                    intval( $cbxresume_data['volunteer_last_count'] ) : 0;
-		                                    ?>
+											<?php
+											// Get license last count from db
+											$volunteer_last_count = isset( $cbxresume_data['volunteer_last_count'] ) ?
+												intval( $cbxresume_data['volunteer_last_count'] ) : 0;
+											?>
 
                                             <!-- cbx resume last count field -->
                                             <input type="hidden" name="cbxresume[volunteer_last_count]"
@@ -554,42 +589,40 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                         </div> <!--- end volunteer section section --->
 
 
-
-
                                         <!-- cbxresume language -->
-	                                    <?php
-	                                    $cbxresume_skill = isset( $cbxresume_data['skill'] ) ?
-		                                    $cbxresume_data['skill'] : array();
+										<?php
+										$cbxresume_skill = isset( $cbxresume_data['skill'] ) ?
+											$cbxresume_data['skill'] : array();
 
-	                                    if ( ! is_array( $cbxresume_skill ) ) {
-		                                    $cbxresume_skill = array();
-	                                    }
-	                                    ?>
+										if ( ! is_array( $cbxresume_skill ) ) {
+											$cbxresume_skill = array();
+										}
+										?>
 
                                         <h2><?php echo esc_html__( 'Skill', 'cbxresume' ); ?></h2>
                                         <div class="cbxresume_section cbxresume_section_skill">
 
                                             <div class="cbxresume_skills">
-			                                    <?php
-			                                    if ( sizeof( $cbxresume_skill ) > 0 ) {
-				                                    foreach ( $cbxresume_skill as $key => $skill ) {
-					                                    ?>
+												<?php
+												if ( sizeof( $cbxresume_skill ) > 0 ) {
+													foreach ( $cbxresume_skill as $key => $skill ) {
+														?>
                                                         <div class="cbxresume_skill">
                                                             <input type="text"
                                                                    name="cbxresume[skill][<?php echo
-						                                           esc_attr( $key ); ?>]"
+															       esc_attr( $key ); ?>]"
                                                                    value="<?php echo esc_attr__( $skill ); ?>"/>
 
                                                             <a href="#" class="button cbxresume_skill_remove">
                                                                     <span class="dashicons dashicons-trash"
                                                                           style="margin-top: 3px;margin-bottom :10px;
                                                                             color: red;"></span><?php echo esc_html__(
-								                                    'Remove', 'cbxresume' ); ?></a>
+																	'Remove', 'cbxresume' ); ?></a>
                                                         </div>
-					                                    <?php
-				                                    }
-			                                    }
-			                                    ?>
+														<?php
+													}
+												}
+												?>
                                             </div>
 
                                             <!-- Add new skill button -->
@@ -597,15 +630,15 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                                 <a data-busy="0" href="#" class="button cbxresume_skill_add">
                                                     <span class="dashicons dashicons-plus-alt" style="margin-top:
                                                     3px;color: #0baf63;"></span>
-				                                    <?php echo esc_html__( 'Add Skills', 'cbxresume' ); ?>
+													<?php echo esc_html__( 'Add Skills', 'cbxresume' ); ?>
                                                 </a>
                                             </p>
 
-		                                    <?php
-		                                    // Get language last count from db
-		                                    $skill_last_count = isset( $cbxresume_data['skill_last_count'] ) ?
-			                                    intval( $cbxresume_data['skill_last_count'] ) : 0;
-		                                    ?>
+											<?php
+											// Get language last count from db
+											$skill_last_count = isset( $cbxresume_data['skill_last_count'] ) ?
+												intval( $cbxresume_data['skill_last_count'] ) : 0;
+											?>
 
                                             <!-- cbx resume last count field -->
                                             <input type="hidden" name="cbxresume[skill_last_count]"
@@ -613,20 +646,6 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                                    value="<?php echo esc_attr( $skill_last_count ); ?>"/>
 
                                         </div> <!-- end cbxresume skill section -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                                     </div> <!-- end main section -->
