@@ -109,4 +109,27 @@ class CBXResumeHelper {
 	} // end method getCbxresumeData
 
 
+	/**
+	 * @param $last_count_val
+	 *
+	 * @return string
+	 */
+    public static function cbxresumeAddSkillField($last_count_val){
+
+	    $field = '<div class="cbxresume_skill">';
+
+	    $field .= '<input type="text" name="cbxresume[skill][' . $last_count_val . ']" 
+				   placeholder="' . esc_html__( 'write your skill', 'cbxresume' ) . '" /> 
+				   
+		           <a href="#" class="button cbxresume_skill_remove">
+		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+	              . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+	    $field .= '</div>';
+
+	    return $field;
+
+    }
+
+
 }//end class CBXResumeHelper

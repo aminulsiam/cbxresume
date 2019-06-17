@@ -193,7 +193,11 @@ class CBXResume {
 		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_license', $plugin_admin,
 			'cbxresume_resume_edit_add_license' );
 
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_volunteer', $plugin_admin,
+			'cbxresume_resume_edit_add_volunteer' );
 
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_skill', $plugin_admin,
+			'cbxresume_resume_edit_add_skill' );
 
 		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_language', $plugin_admin,
 			'cbxresume_resume_edit_add_language' );

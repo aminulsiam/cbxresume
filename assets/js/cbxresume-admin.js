@@ -106,6 +106,59 @@
 
 
 
+        // Add volunteer by Ajax Request
+        $(".cbxresume_section_volunteer").on('click', '.cbxresume_volunteer_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "volunteer";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of experience add functionality
+
+
+        // remove language field
+        $('.cbxresume_section_volunteer').on('click', '.cbxresume_volunteer_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_volunteer').remove();
+        });
+        // end of license section -----------------------------//
+
+
+
+
+        // Add skill by Ajax Request
+        $(".cbxresume_section_skill").on('click', '.cbxresume_skill_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "skill";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of experience add functionality
+
+
+        // remove language field
+        $('.cbxresume_section_skill').on('click', '.cbxresume_skill_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_skill').remove();
+        });
+        // end of language section -----------------------------//
+
+
+
         /**
          * Sending Ajax Request to making all kind of resume fields.
          *

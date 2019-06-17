@@ -516,7 +516,83 @@ class CBXResume_Admin {
 		echo json_encode( $output );
 
 		exit();
-	}
+	} // end method cbxresume_resume_edit_add_license
+
+
+	/**
+	 * Add new volunteer template
+	 */
+	public function cbxresume_resume_edit_add_volunteer() {
+		$output = array();
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$field = '<div class="cbxresume_volunteer">';
+
+		$field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][organization]" 
+				   placeholder="' . esc_html__( 'Organization', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[volunteer][' . $last_count_val . '][role]" 
+				   placeholder="' . esc_html__( 'Role', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[volunteer][' . $last_count_val . '][cause]" 
+				   placeholder="' . esc_html__( 'Cause', 'cbxresume' ) . '" />';
+
+		$field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][from]">
+					<option value="">' . esc_html__( 'From', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select>';
+
+		$field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][to]"><option value="">' . esc_html__(
+				'To', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select>';
+
+		$field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][description]" 
+				   placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '" />  
+				   
+		           <a href="#" class="button cbxresume_volunteer_remove">
+		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		$output['field'] = $field;
+
+		echo json_encode( $output );
+
+		exit();
+	} // end method cbxresume_resume_edit_add_volunteer
+
+
+	/**
+	 * Add new skill template
+	 */
+	public function cbxresume_resume_edit_add_skill(){
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::cbxresumeAddSkillField($last_count_val);
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_skill
+
+
+
+
 
 
 	/**
