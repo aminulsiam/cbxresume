@@ -530,6 +530,23 @@ class CBXResume_Admin {
 
 	} // end method cbxresume_resume_edit_add_project
 
+	/**
+	 * Add new honors & awards template
+	 */
+	public function cbxresume_resume_edit_add_honor_award() {
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::resumeAdd_Honors_Awards_Field( $last_count_val );
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_honors_award
+
 
 	/**
 	 * Register the stylesheets for the admin area.

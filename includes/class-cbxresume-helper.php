@@ -445,7 +445,13 @@ class CBXResumeHelper {
 
 	} // end method resumeAdd_Course_Field
 
-
+	/**
+	 * Add project field is create from here.
+	 *
+	 * @param $last_count_val
+	 *
+	 * @return string
+	 */
 	public static function resumeAdd_Project_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_project">';
@@ -481,8 +487,8 @@ class CBXResumeHelper {
 		$field .= '<input type = "text" name = "cbxresume[project][' . $last_count_val . '][writter]" 
 				   placeholder = "' . esc_html__( 'Writter', 'cbxresume' ) . '" />
 				   
-				   <input type = "text" name = "cbxresume[project][' . $last_count_val . '][publication_url]" 
-				   placeholder = "' . esc_html__( 'Publication url', 'cbxresume' ) . '" />
+				   <input type = "text" name = "cbxresume[project][' . $last_count_val . '][project_url]" 
+				   placeholder = "' . esc_html__( 'Project url', 'cbxresume' ) . '" />
 				   
 				   <input type = "text" name = "cbxresume[project][' . $last_count_val . '][associated_with]" 
 				   placeholder = "' . esc_html__( 'Description', 'cbxresume' ) . '" />      
@@ -497,6 +503,67 @@ class CBXResumeHelper {
 
 
 	} // end method resumeAdd_Project_Field
+
+
+	/**
+	 * Add Honors & Awards field is create from here.
+	 *
+	 * @param $last_count_val
+	 *
+	 * @return string
+	 */
+	public static function resumeAdd_Honors_Awards_Field( $last_count_val ) {
+
+
+		$field = '<div class="cbxresume_honor_award">';
+
+		$field .= '<input type="text" name="cbxresume[honor_award][' . $last_count_val . '][title]" 
+				   placeholder="' . esc_html__( 'Title', 'cbxresume' ) . '" /> 
+				  
+				   <input type = "text" name = "cbxresume[honor_award][' . $last_count_val . '][associated_with]" 
+				   placeholder = "' . esc_html__( 'Associated with', 'cbxresume' ) . '" /> 
+				   
+				   <input type = "text" name = "cbxresume[honor_award][' . $last_count_val . '][issuer]" 
+				   placeholder = "' . esc_html__( 'Issuer', 'cbxresume' ) . '" />';
+
+
+		$publication_month = CBXResumeHelper::getResumeMonth();
+
+		$field .= '<label>' . esc_html__( 'Start date', 'cbxresume' ) . '</label>';
+
+		$field .= '<select name="cbxresume[honor_award][' . $last_count_val . '][month]">
+					<option value="">' . esc_html__( 'Month', 'cbxresume' ) . '</option>';
+
+		foreach ( $publication_month as $key => $month ) {
+			$field .= '<option value="' . $key . '">' . $month . '</option>';
+		}
+
+		$field .= '</select>';
+
+
+		$field .= '<select name="cbxresume[honor_award][' . $last_count_val . '][year]">
+					<option value="">' . esc_html__( 'Year', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select> | ';
+
+
+		$field .= '<input type = "text" name = "cbxresume[honor_award][' . $last_count_val . '][description]" 
+				   placeholder = "' . esc_html__( 'Description', 'cbxresume' ) . '" />
+				   
+		           <a href = "#" class="button cbxresume_honor_award_remove" >
+		           <span class="dashicons dashicons-trash" style = "margin-top: 3px;color: red;" ></span > '
+		          . esc_html__( 'Remove', 'cbxresume' ) . ' </a > ';
+
+		$field .= '</div > ';
+
+		return $field;
+
+
+	} // end method resumeAdd_Honors_Awards_Field
 
 
 	/**

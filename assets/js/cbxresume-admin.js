@@ -231,6 +231,32 @@
         // end of project section -----------------------------//
 
 
+        // Add honors & awards by Ajax Request
+        $(".cbxresume_section_honor_award").on('click', '.cbxresume_honor_award_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "honor_award";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of publication add functionality
+
+
+        // remove publication field
+        $('.cbxresume_section_honor_award').on('click', '.cbxresume_honor_award_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_honor_award').remove();
+        });
+
+        // end of project section -----------------------------//
+
+
         /**
          * Sending Ajax Request to making all kind of resume fields.
          *
