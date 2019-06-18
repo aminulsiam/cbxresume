@@ -195,11 +195,24 @@ class CBXResumeHelper {
 		$field = '<div class="cbxresume_experience">';
 
 		$field .= '<input type="text" name="cbxresume[experience][' . $last_count_val . '][title]" 
-				   placeholder="' . esc_html__( 'Title/Designation', 'cbxresume' ) . '" /> 
+				   placeholder="' . esc_html__( 'Title/Designation', 'cbxresume' ) . '" />
+				    
 				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][company]" 
-				   placeholder="' . esc_html__( 'Company name', 'cbxresume' ) . '" />
-				   <input type="text" name="cbxresume[experience][' . $last_count_val . '][start_date]" /> 
-		           <input type="text" name="cbxresume[experience][' . $last_count_val . '][description]" 
+				   placeholder="' . esc_html__( 'Company name', 'cbxresume' ) . '" />';
+
+		$field .= '</select>';
+
+
+		$field .= '<select name="cbxresume[experience][' . $last_count_val . '][start_date]"><option value="">' . esc_html__(
+				'Start date', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select>';
+
+		$field .= '<input type="text" name="cbxresume[experience][' . $last_count_val . '][description]" 
 		           placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '"/> 
 		           <a href="#" class="button cbxresume_experience_remove">
 		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
@@ -213,61 +226,55 @@ class CBXResumeHelper {
 
 
 	/**
-     * Add Language field is create form here.
-     *
+	 * Add Language field is create form here.
+	 *
 	 * @param int $last_count_val
 	 *
 	 * @return string
 	 */
-    public static function resumeAdd_Language_Field($last_count_val){
+	public static function resumeAdd_Language_Field( $last_count_val ) {
 
-	    $field = '<div class="cbxresume_language">';
+		$field = '<div class="cbxresume_language">';
 
-	    $field .= '<input type="text" name="cbxresume[language][' . $last_count_val . '][language_name]" 
+		$field .= '<input type="text" name="cbxresume[language][' . $last_count_val . '][language_name]" 
 				   placeholder="' . esc_html__( 'Language', 'cbxresume' ) . '" />';
 
-	    $field .= '</select>';
+		$field .= '</select>';
 
-	    $language_proficiency = array(
-		    'elementary'           => esc_html__( 'Elementary proficiency', 'cbxresume' ),
-		    'limited_working'      => esc_html__( 'Limited working proficiency', 'cbxresume' ),
-		    'professional_working' => esc_html__( 'Professional working proficiency', 'cbxresume' ),
-		    'full_professional'    => esc_html__( 'Full professional proficiency', 'cbxresume' ),
-		    'native_or_bilingual'  => esc_html__( 'Native or bilingual proficiency', 'cbxresume' ),
-	    );
+		$language_proficiency = CBXResumeHelper::getLanguageProficiency();
 
-	    $field .= ' <select name="cbxresume[language][' . $last_count_val . '][language_proficiency]">';
+		$field .= ' <select name="cbxresume[language][' . $last_count_val . '][language_proficiency]">';
 
-	    foreach ( $language_proficiency as $key => $language ) {
-		    $field .= '<option value="' . $key . '">' . $language . '</option>';
-	    }
+		foreach ( $language_proficiency as $key => $language ) {
+			$field .= '<option value="' . $key . '">' . $language . '</option>';
+		}
 
-	    $field .= '</select>';
+		$field .= '</select>';
 
 
-	    $field .= ' <a href="#" class="button cbxresume_language_remove">
+		$field .= ' <a href="#" class="button cbxresume_language_remove">
 		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
-	              . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
 
-	    $field .= '</div>';
+		$field .= '</div>';
 
-	    return $field;
+		return $field;
 
-    } // end method resumeAddLanguageField
+	} // end method resumeAddLanguageField
 
 
 	/**
-     * Add License field is create from here.
+	 * Add License field is create from here.
 	 *
 	 * @param int $last_count_val
 	 *
 	 * @return string
 	 */
-    public static function resumeAdd_License_Field($last_count_val){
+	public static function resumeAdd_License_Field( $last_count_val ) {
 
-	    $field = '<div class="cbxresume_license">';
+		$field = '<div class="cbxresume_license">';
 
-	    $field .= '<input type="text" name="cbxresume[license][' . $last_count_val . '][name]" 
+		$field .= '<input type="text" name="cbxresume[license][' . $last_count_val . '][name]" 
 				   placeholder="' . esc_html__( 'Name', 'cbxresume' ) . '" /> 
 				   
 				   <input type="text" name="cbxresume[license][' . $last_count_val . '][issuing_organization]" 
@@ -278,27 +285,27 @@ class CBXResumeHelper {
 				   
 		           <a href="#" class="button cbxresume_license_remove">
 		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
-	              . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
 
-	    $field .= '</div>';
+		$field .= '</div>';
 
-	    return $field;
+		return $field;
 
-    } // end method resumeAddVolunteer
+	} // end method resumeAddVolunteer
 
 
 	/**
-     * Add Volunteer field is create from here.
-     *
+	 * Add Volunteer field is create from here.
+	 *
 	 * @param int $last_count_val
 	 *
 	 * @return string
 	 */
-    public static function resumeAdd_Volunteer_Field($last_count_val){
+	public static function resumeAdd_Volunteer_Field( $last_count_val ) {
 
-	    $field = '<div class="cbxresume_volunteer">';
+		$field = '<div class="cbxresume_volunteer">';
 
-	    $field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][organization]" 
+		$field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][organization]" 
 				   placeholder="' . esc_html__( 'Organization', 'cbxresume' ) . '" /> 
 				   
 				   <input type="text" name="cbxresume[volunteer][' . $last_count_val . '][role]" 
@@ -307,36 +314,236 @@ class CBXResumeHelper {
 				   <input type="text" name="cbxresume[volunteer][' . $last_count_val . '][cause]" 
 				   placeholder="' . esc_html__( 'Cause', 'cbxresume' ) . '" />';
 
-	    $field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][from]">
+		$field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][from]">
 					<option value="">' . esc_html__( 'From', 'cbxresume' ) . '</option>';
 
-	    for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-		    $field .= '<option value="' . $i . '">' . $i . '</option>';
-	    }
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
 
-	    $field .= '</select>';
+		$field .= '</select>';
 
-	    $field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][to]"><option value="">' . esc_html__(
-			    'To', 'cbxresume' ) . '</option>';
+		$field .= '<select name="cbxresume[volunteer][' . $last_count_val . '][to]"><option value="">' . esc_html__(
+				'To', 'cbxresume' ) . '</option>';
 
-	    for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-		    $field .= '<option value="' . $i . '">' . $i . '</option>';
-	    }
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
 
-	    $field .= '</select>';
+		$field .= '</select>';
 
-	    $field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][description]" 
+		$field .= '<input type="text" name="cbxresume[volunteer][' . $last_count_val . '][description]" 
 				   placeholder="' . esc_html__( 'Description', 'cbxresume' ) . '" />  
 				   
 		           <a href="#" class="button cbxresume_volunteer_remove">
 		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
-	              . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
 
-	    $field .= '</div>';
+		$field .= '</div>';
 
-	    return $field;
+		return $field;
 
-    } // end method
+	} // end method resume resumeAdd_Volunteer_Field
+
+
+	/**
+	 * Add publication field is create from here.
+	 *
+	 * @param $last_count_val
+	 *
+	 * @return string
+	 */
+	public static function resumeAdd_publication_Field( $last_count_val ) {
+
+		$field = '<div class="cbxresume_publication">';
+
+		$field .= '<input type="text" name="cbxresume[publication][' . $last_count_val . '][title]" 
+				   placeholder="' . esc_html__( 'Title', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[publication][' . $last_count_val . '][publisher]" 
+				   placeholder="' . esc_html__( 'Publisher', 'cbxresume' ) . '" /> ';
+
+
+		$field .= '<select name="cbxresume[publication][' . $last_count_val . '][year]">
+					<option value="">' . esc_html__( 'Year', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select>';
+
+
+		$publication_month = CBXResumeHelper::getResumeMonth();
+
+		$field .= '<select name="cbxresume[publication][' . $last_count_val . '][month]">
+					<option value="">' . esc_html__( 'Month', 'cbxresume' ) . '</option>';
+
+		foreach ( $publication_month as $key => $month ) {
+			$field .= '<option value="' . $key . '">' . $month . '</option>';
+		}
+
+		$field .= '</select>';
+
+		$field .= '<select name="cbxresume[publication][' . $last_count_val . '][day]">
+					<option value="">' . esc_html__( 'Day', 'cbxresume' ) . '</option>';
+
+		for ( $i = 1; $i <= 31; $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select>';
+
+
+		$field .= '<input type = "text" name = "cbxresume[publication][' . $last_count_val . '][writter]" 
+				   placeholder = "' . esc_html__( 'Writter', 'cbxresume' ) . '" />
+				   
+				   <input type = "text" name = "cbxresume[publication][' . $last_count_val . '][publication_url]" 
+				   placeholder = "' . esc_html__( 'Publication url', 'cbxresume' ) . '" />
+				   
+				   <input type = "text" name = "cbxresume[publication][' . $last_count_val . '][description]" 
+				   placeholder = "' . esc_html__( 'Description', 'cbxresume' ) . '" />      
+				   
+		           <a href = "#" class="button cbxresume_publication_remove" >
+		           <span class="dashicons dashicons-trash" style = "margin-top: 3px;color: red;" ></span > '
+		          . esc_html__( 'Remove', 'cbxresume' ) . ' </a > ';
+
+		$field .= '</div > ';
+
+		return $field;
+
+	} // end method resumeAdd_publication_Field
+
+
+	/**
+	 * Add Course field is create from here.
+	 *
+	 * @param int $last_count_val
+	 *
+	 * @return string
+	 */
+	public static function resumeAdd_Course_Field( $last_count_val ) {
+
+		$field = '<div class="cbxresume_course">';
+
+		$field .= '<input type="text" name="cbxresume[course][' . $last_count_val . '][name]" 
+				   placeholder="' . esc_html__( 'Name', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[course][' . $last_count_val . '][number]" 
+				   placeholder="' . esc_html__( 'Course number', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[course][' . $last_count_val . '][associated_with]" 
+				   placeholder="' . esc_html__( 'Associated with others', 'cbxresume' ) . '" /> 
+				   
+		           <a href="#" class="button cbxresume_course_remove">
+		           <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		return $field;
+
+	} // end method resumeAdd_Course_Field
+
+
+	public static function resumeAdd_Project_Field( $last_count_val ) {
+
+		$field = '<div class="cbxresume_project">';
+
+		$field .= '<input type="text" name="cbxresume[project][' . $last_count_val . '][project_name]" 
+				   placeholder="' . esc_html__( 'Project name', 'cbxresume' ) . '" /> | ';
+
+
+		$publication_month = CBXResumeHelper::getResumeMonth();
+
+		$field .= '<label>' . esc_html__( 'Start date', 'cbxresume' ) . '</label>';
+
+		$field .= '<select name="cbxresume[project][' . $last_count_val . '][month]">
+					<option value="">' . esc_html__( 'Month', 'cbxresume' ) . '</option>';
+
+		foreach ( $publication_month as $key => $month ) {
+			$field .= '<option value="' . $key . '">' . $month . '</option>';
+		}
+
+		$field .= '</select>';
+
+
+		$field .= '<select name="cbxresume[project][' . $last_count_val . '][year]">
+					<option value="">' . esc_html__( 'Year', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select> | ';
+
+
+		$field .= '<input type = "text" name = "cbxresume[project][' . $last_count_val . '][writter]" 
+				   placeholder = "' . esc_html__( 'Writter', 'cbxresume' ) . '" />
+				   
+				   <input type = "text" name = "cbxresume[project][' . $last_count_val . '][publication_url]" 
+				   placeholder = "' . esc_html__( 'Publication url', 'cbxresume' ) . '" />
+				   
+				   <input type = "text" name = "cbxresume[project][' . $last_count_val . '][associated_with]" 
+				   placeholder = "' . esc_html__( 'Description', 'cbxresume' ) . '" />      
+				   
+		           <a href = "#" class="button cbxresume_project_remove" >
+		           <span class="dashicons dashicons-trash" style = "margin-top: 3px;color: red;" ></span > '
+		          . esc_html__( 'Remove', 'cbxresume' ) . ' </a > ';
+
+		$field .= '</div > ';
+
+		return $field;
+
+
+	} // end method resumeAdd_Project_Field
+
+
+	/**
+	 * Get all language proficiency list form here.
+	 *
+	 * @return array
+	 */
+	public static function getLanguageProficiency() {
+
+		$language_proficiency = array(
+			'elementary'           => esc_html__( 'Elementary proficiency', 'cbxresume' ),
+			'limited_working'      => esc_html__( 'Limited working proficiency', 'cbxresume' ),
+			'professional_working' => esc_html__( 'Professional working proficiency', 'cbxresume' ),
+			'full_professional'    => esc_html__( 'Full professional proficiency', 'cbxresume' ),
+			'native_or_bilingual'  => esc_html__( 'Native or bilingual proficiency', 'cbxresume' ),
+		);
+
+		return $language_proficiency;
+
+	} // end method getLanguageProficiency
+
+
+	/**
+	 * Get all publication month list form here.
+	 *
+	 * @return array
+	 */
+	public static function getResumeMonth() {
+
+		$publication_month = array(
+			'jan' => esc_html__( 'January', 'cbxresume' ),
+			'feb' => esc_html__( 'February', 'cbxresume' ),
+			'mar' => esc_html__( 'March', 'cbxresume' ),
+			'apr' => esc_html__( 'April', 'cbxresume' ),
+			'may' => esc_html__( 'May', 'cbxresume' ),
+			'jun' => esc_html__( 'June', 'cbxresume' ),
+			'jul' => esc_html__( 'July', 'cbxresume' ),
+			'agu' => esc_html__( 'Aguest', 'cbxresume' ),
+			'sep' => esc_html__( 'September', 'cbxresume' ),
+			'oct' => esc_html__( 'October', 'cbxresume' ),
+			'nov' => esc_html__( 'November', 'cbxresume' ),
+			'dec' => esc_html__( 'December', 'cbxresume' )
+		);
+
+		return $publication_month;
+
+	} // end method getLanguageProficiency
 
 
 }//end class CBXResumeHelper

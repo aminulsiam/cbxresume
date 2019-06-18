@@ -105,7 +105,6 @@
         // end of license section -----------------------------//
 
 
-
         // Add volunteer by Ajax Request
         $(".cbxresume_section_volunteer").on('click', '.cbxresume_volunteer_add', function (e) {
             e.preventDefault();
@@ -131,8 +130,6 @@
         // end of license section -----------------------------//
 
 
-
-
         // Add skill by Ajax Request
         $(".cbxresume_section_skill").on('click', '.cbxresume_skill_add', function (e) {
             e.preventDefault();
@@ -155,8 +152,83 @@
 
             $(this).closest('.cbxresume_skill').remove();
         });
-        // end of language section -----------------------------//
+        // end of skill section -----------------------------//
 
+
+        // Add skill by Ajax Request
+        $(".cbxresume_section_publication").on('click', '.cbxresume_publication_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "publication";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of publication add functionality
+
+
+        // remove publication field
+        $('.cbxresume_section_publication').on('click', '.cbxresume_publication_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_publication').remove();
+        });
+        // end of publication section -----------------------------//
+
+
+        // Add skill by Ajax Request
+        $(".cbxresume_section_course").on('click', '.cbxresume_course_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "course";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of publication add functionality
+
+
+        // remove publication field
+        $('.cbxresume_section_course').on('click', '.cbxresume_course_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_course').remove();
+        });
+        // end of publication section -----------------------------//
+
+
+        // Add project by Ajax Request
+        $(".cbxresume_section_project").on('click', '.cbxresume_project_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "project";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of publication add functionality
+
+
+        // remove publication field
+        $('.cbxresume_section_project').on('click', '.cbxresume_project_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_project').remove();
+        });
+
+        // end of project section -----------------------------//
 
 
         /**

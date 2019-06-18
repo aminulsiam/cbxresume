@@ -202,7 +202,17 @@ class CBXResume {
 		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_language', $plugin_admin,
 			'cbxresume_resume_edit_add_language' );
 
-	}
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_publication', $plugin_admin,
+			'cbxresume_resume_edit_add_publication' );
+
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_course', $plugin_admin,
+			'cbxresume_resume_edit_add_course' );
+
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_project', $plugin_admin,
+			'cbxresume_resume_edit_add_project' );
+
+
+	} // end method define_admin_hooks()
 
 	/**
 	 * The name of the plugin used to uniquely identify it within the context of

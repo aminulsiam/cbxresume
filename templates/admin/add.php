@@ -41,7 +41,7 @@ if ( isset( $_GET['id'] ) && intval( $_GET['id'] ) > 0 ) {
 
 	$cbxresume_data = CBXResumeHelper::getResumeData( $wpdb, $resume_id );
 
-	//write_log( $cbxresume_data );
+	write_log( $cbxresume_data );
 
 }
 
@@ -259,23 +259,18 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                                                    value="<?php echo esc_attr__(
 																       $experience['company'] ); ?>"/>
 
-                                                            <input type="text"
-                                                                   name="cbxresume[experience][<?php echo
-															       esc_attr( $key ); ?>][start_date]"
-                                                                   value="<?php echo esc_attr__(
-																       $experience['start_date'] ); ?>"/>
-
-                                                            <!--  <select name="cbxresume[education][<?php /*echo
-						                                    esc_attr( $key ); */ ?>][to]">
-							                                    <?php
-															/*							                                    for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
-																																*/ ?>
-                                                                    <option value="<?php /*echo esc_attr( $i ) */ ?>"
-									                                    <?php /*selected( $education['to'], $i ); */ ?>>
-									                                    <?php /*echo esc_html( $i ); */ ?>
+                                                            <select name="cbxresume[experience][<?php echo
+															esc_attr( $key ); ?>][start_date]">
+																<?php
+																for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+																	?>
+                                                                    <option value="<?php echo esc_attr( $i ) ?>"
+																		<?php selected( $experience['start_date'], $i );
+																		?>>
+																		<?php echo esc_html( $i ); ?>
                                                                     </option>
-							                                    <?php /*} */ ?>
-                                                            </select>-->
+																<?php } ?>
+                                                            </select>
 
 
                                                             <input type="text"
@@ -322,24 +317,10 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                         <!-- cbxresume language -->
 										<?php
 
-										$language_proficiency = array(
-											'elementary'           => esc_html__( 'Elementary proficiency',
-												'cbxresume' ),
-											'limited_working'      => esc_html__( 'Limited working proficiency',
-												'cbxresume' ),
-											'professional_working' => esc_html__( 'Professional working proficiency',
-												'cbxresume' ),
-											'full_professional'    => esc_html__( 'Full professional proficiency',
-												'cbxresume' ),
-											'native_or_bilingual'  => esc_html__( 'Native or bilingual proficiency',
-												'cbxresume' ),
-										);
-
+										$language_proficiency = CBXResumeHelper::getLanguageProficiency();
 
 										$cbxresume_language = isset( $cbxresume_data['language'] ) ?
 											$cbxresume_data['language'] : array();
-
-										//write_log($cbxresume_language);
 
 										if ( ! is_array( $cbxresume_language ) ) {
 											$cbxresume_language = array();
@@ -589,7 +570,7 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                         </div> <!--- end volunteer section section --->
 
 
-                                        <!-- cbxresume language -->
+                                        <!-- cbxresume skill -->
 										<?php
 										$cbxresume_skill = isset( $cbxresume_data['skill'] ) ?
 											$cbxresume_data['skill'] : array();
@@ -648,7 +629,334 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                         </div> <!-- end cbxresume skill section -->
 
 
+                                        <!-- cbxresume publication -->
+										<?php
+										$cbxresume_publication = isset( $cbxresume_data['publication'] ) ?
+											$cbxresume_data['publication'] : array();
+
+										if ( ! is_array( $cbxresume_publication ) ) {
+											$cbxresume_publication = array();
+										}
+
+										$cbxresume_month = CBXResumeHelper::getResumeMonth();
+										?>
+
+                                        <h2><?php echo esc_html__( 'Publication', 'cbxresume' ); ?></h2>
+                                        <div class="cbxresume_section cbxresume_section_publication">
+
+                                            <div class="cbxresume_publications">
+												<?php
+												if ( sizeof( $cbxresume_publication ) > 0 ) {
+													foreach ( $cbxresume_publication as $key => $publication ) {
+														?>
+                                                        <div class="cbxresume_publication">
+
+                                                            <input type="text"
+                                                                   name="cbxresume[publication][<?php echo
+															       esc_attr( $key ); ?>][title]"
+                                                                   value="<?php echo
+															       esc_attr__( $publication['title'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[publication][<?php echo
+															       esc_attr( $key ); ?>][publisher]"
+                                                                   value="<?php echo
+															       esc_attr__( $publication['publisher'] ); ?>"/>
+
+
+                                                            <select name="cbxresume[publication][<?php echo
+															esc_attr( $key ); ?>][year]">
+																<?php
+																for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+																	?>
+                                                                    <option value="<?php echo esc_attr( $i ) ?>"
+																		<?php selected( $publication['year'], $i ); ?>>
+																		<?php echo esc_html( $i ); ?>
+                                                                    </option>
+																<?php } ?>
+                                                            </select>
+
+                                                            <select name="cbxresume[project][<?php echo
+	                                                        esc_attr( $key ); ?>][month]">
+
+		                                                        <?php
+		                                                        foreach ( $cbxresume_month as $p => $p_month ) {
+			                                                        ?>
+                                                                    <option value="<?php echo esc_attr( $p ); ?>"
+				                                                        <?php
+				                                                        selected( $publication['month'], $p ); ?>>
+
+				                                                        <?php echo $p_month; ?>
+                                                                    </option>
+		                                                        <?php } ?>
+                                                            </select>
+
+
+
+
+                                                            <select name="cbxresume[publication][<?php echo
+															esc_attr( $key ); ?>][day]">
+																<?php
+																for ( $i = 1; $i <= 31; $i ++ ) {
+																	?>
+                                                                    <option value="<?php echo esc_attr( $i ) ?>"
+																		<?php selected( $publication['day'], $i ); ?>>
+																		<?php echo esc_html( $i ); ?>
+                                                                    </option>
+																<?php } ?>
+                                                            </select>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[publication][<?php echo
+	                                                               esc_attr( $key ); ?>][writter]"
+                                                                   value="<?php echo
+	                                                               esc_attr__( $publication['writter'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[publication][<?php echo
+	                                                               esc_attr( $key ); ?>][publication_url]"
+                                                                   value="<?php echo
+	                                                               esc_attr__( $publication['publication_url'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[publication][<?php echo
+	                                                               esc_attr( $key ); ?>][description]"
+                                                                   value="<?php echo
+	                                                               esc_attr__( $publication['description'] ); ?>"/>
+
+
+                                                            <a href="#" class="button cbxresume_publication_remove">
+                                                                    <span class="dashicons dashicons-trash"
+                                                                          style="margin-top: 3px;margin-bottom :10px;
+                                                                            color: red;"></span><?php echo esc_html__(
+																	'Remove', 'cbxresume' ); ?></a>
+                                                        </div>
+														<?php
+													}
+												}
+												?>
+                                            </div>
+
+                                            <!-- Add new publication button -->
+                                            <p>
+                                                <a data-busy="0" href="#" class="button cbxresume_publication_add">
+                                                    <span class="dashicons dashicons-plus-alt" style="margin-top:
+                                                    3px;color: #0baf63;"></span>
+													<?php echo esc_html__( 'Add Publication', 'cbxresume' ); ?>
+                                                </a>
+                                            </p>
+
+											<?php
+											// Get publication last count from db
+											$publication_last_count = isset( $cbxresume_data['publication_last_count'] ) ?
+												intval( $cbxresume_data['publication_last_count'] ) : 0;
+											?>
+
+                                            <!-- cbx resume last count field -->
+                                            <input type="hidden" name="cbxresume[publication_last_count]"
+                                                   class="cbxresume_publication_last_count"
+                                                   value="<?php echo esc_attr( $publication_last_count ); ?>"/>
+
+                                        </div> <!-- end cbxresume publication section -->
+
+
+                                        <!--  cbxresume course section -->
+	                                    <?php
+	                                    $cbxresume_course = isset( $cbxresume_data['course'] ) ?
+		                                    $cbxresume_data['course'] : array();
+
+	                                    if ( ! is_array( $cbxresume_course ) ) {
+		                                    $cbxresume_course = array();
+	                                    }
+	                                    ?>
+
+                                        <h2><?php echo esc_html__( 'Course', 'cbxresume' ); ?></h2>
+                                        <div class="cbxresume_section cbxresume_section_course">
+
+                                            <div class="cbxresume_courses">
+			                                    <?php
+			                                    if ( sizeof( $cbxresume_course ) > 0 ) {
+				                                    foreach ( $cbxresume_course as $key => $course ) {
+					                                    ?>
+                                                        <div class="cbxresume_course">
+                                                            <input type="text"
+                                                                   name="cbxresume[course][<?php echo
+						                                           esc_attr( $key ); ?>][name]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $course['name'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[course][<?php echo
+						                                           esc_attr( $key ); ?>][number]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $course['number'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[course][<?php echo
+						                                           esc_attr( $key ); ?>][associated_with]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $course['associated_with'] ); ?>"/>
+
+                                                            <a href="#" class="button cbxresume_course_remove">
+                                                                    <span class="dashicons dashicons-trash"
+                                                                          style="margin-top: 3px;margin-bottom :10px;
+                                                                            color: red;"></span><?php echo esc_html__(
+								                                    'Remove', 'cbxresume' ); ?></a>
+                                                        </div>
+					                                    <?php
+				                                    }
+			                                    }
+			                                    ?>
+                                            </div>
+
+                                            <!-- Add new license button -->
+                                            <p>
+                                                <a data-busy="0" href="#" class="button cbxresume_course_add">
+                                                    <span class="dashicons dashicons-plus-alt" style="margin-top:
+                                                    3px;color: #0baf63;"></span>
+				                                    <?php echo esc_html__( 'Add Course', 'cbxresume' ); ?>
+                                                </a>
+                                            </p>
+
+		                                    <?php
+		                                    // Get license last count from db
+		                                    $course_last_count = isset( $cbxresume_data['course_last_count'] ) ?
+			                                    intval( $cbxresume_data['course_last_count'] ) : 0;
+		                                    ?>
+
+                                            <!-- cbx resume last count field -->
+                                            <input type="hidden" name="cbxresume[course_last_count]"
+                                                   class="cbxresume_course_last_count"
+                                                   value="<?php echo esc_attr( $course_last_count ); ?>"/>
+
+                                        </div> <!--- end course section --->
+
+
+
+                                        <!--  cbxresume project section -->
+	                                    <?php
+	                                    $cbxresume_project = isset( $cbxresume_data['project'] ) ?
+		                                    $cbxresume_data['project'] : array();
+
+	                                    if ( ! is_array( $cbxresume_project ) ) {
+		                                    $cbxresume_project = array();
+	                                    }
+	                                    ?>
+
+                                        <h2><?php echo esc_html__( 'Projects', 'cbxresume' ); ?></h2>
+                                        <div class="cbxresume_section cbxresume_section_project">
+
+                                            <div class="cbxresume_projects">
+			                                    <?php
+			                                    if ( sizeof( $cbxresume_project ) > 0 ) {
+				                                    foreach ( $cbxresume_project as $key => $project ) {
+					                                    ?>
+                                                        <div class="cbxresume_project">
+                                                            <input type="text"
+                                                                   name="cbxresume[project][<?php echo
+						                                           esc_attr( $key ); ?>][project_name]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $project['project_name'] ); ?>"/>
+
+
+                                                            <select name="cbxresume[project][<?php echo
+	                                                        esc_attr( $key ); ?>][month]">
+
+		                                                        <?php
+		                                                        foreach ( $cbxresume_month as $p => $p_month ) {
+			                                                        ?>
+                                                                    <option value="<?php echo esc_attr( $p ); ?>"
+				                                                        <?php
+				                                                        selected( $project['month'], $p ); ?>>
+
+				                                                        <?php echo $p_month; ?>
+                                                                    </option>
+		                                                        <?php } ?>
+                                                            </select>
+
+                                                            <select name="cbxresume[project][<?php echo
+	                                                        esc_attr( $key ); ?>][year]">
+		                                                        <?php
+		                                                        for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			                                                        ?>
+                                                                    <option value="<?php echo esc_attr( $i ) ?>"
+				                                                        <?php selected( $project['year'], $i ); ?>>
+				                                                        <?php echo esc_html( $i ); ?>
+                                                                    </option>
+		                                                        <?php } ?>
+                                                            </select>
+
+
+                                                            <input type="text"
+                                                                   name="cbxresume[project][<?php echo
+						                                           esc_attr( $key ); ?>][publication_url]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $project['publication_url'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[project][<?php echo
+						                                           esc_attr( $key ); ?>][associated_with]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $project['associated_with'] ); ?>"/>
+
+                                                            <a href="#" class="button cbxresume_course_remove">
+                                                                    <span class="dashicons dashicons-trash"
+                                                                          style="margin-top: 3px;margin-bottom :10px;
+                                                                            color: red;"></span><?php echo esc_html__(
+								                                    'Remove', 'cbxresume' ); ?></a>
+                                                        </div>
+					                                    <?php
+				                                    }
+			                                    }
+			                                    ?>
+                                            </div>
+
+                                            <!-- Add new license button -->
+                                            <p>
+                                                <a data-busy="0" href="#" class="button cbxresume_project_add">
+                                                    <span class="dashicons dashicons-plus-alt" style="margin-top:
+                                                    3px;color: #0baf63;"></span>
+				                                    <?php echo esc_html__( 'Add Project', 'cbxresume' ); ?>
+                                                </a>
+                                            </p>
+
+		                                    <?php
+		                                    // Get license last count from db
+		                                    $project_last_count = isset( $cbxresume_data['project_last_count'] ) ?
+			                                    intval( $cbxresume_data['project_last_count'] ) : 0;
+		                                    ?>
+
+                                            <!-- cbx resume last count field -->
+                                            <input type="hidden" name="cbxresume[project_last_count]"
+                                                   class="cbxresume_project_last_count"
+                                                   value="<?php echo esc_attr( $project_last_count ); ?>"/>
+
+                                        </div> <!--- end project section --->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     </div> <!-- end main section -->
+
+
+
 
 
                                     <div class="cbxresume_fields">

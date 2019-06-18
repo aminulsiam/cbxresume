@@ -387,7 +387,7 @@ class CBXResume_Admin {
 		echo json_encode( $output );
 
 		exit();
-		
+
 	}//end method cbxresume_resume_edit_add_education
 
 
@@ -450,7 +450,7 @@ class CBXResume_Admin {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
-		$output['field'] = CBXResumeHelper::resumeAdd_Volunteer_Field($last_count_val);
+		$output['field'] = CBXResumeHelper::resumeAdd_Volunteer_Field( $last_count_val );
 
 		echo json_encode( $output );
 
@@ -475,6 +475,60 @@ class CBXResume_Admin {
 		exit();
 
 	} // end method cbxresume_resume_edit_add_skill
+
+
+	/**
+	 * Add new publication template
+	 */
+	public function cbxresume_resume_edit_add_publication() {
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::resumeAdd_publication_Field( $last_count_val );
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_publication
+
+
+	/**
+	 * Add new course template
+	 */
+	public function cbxresume_resume_edit_add_course() {
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::resumeAdd_Course_Field( $last_count_val );
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_course
+
+
+	/**
+	 * Add new project template
+	 */
+	public function cbxresume_resume_edit_add_project() {
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::resumeAdd_Project_Field( $last_count_val );
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_project
 
 
 	/**
@@ -525,9 +579,7 @@ class CBXResume_Admin {
 
 		$current_screen = get_current_screen();
 
-
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 
 		if ( $page == 'cbxresume_settings' ) {
 
