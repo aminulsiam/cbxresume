@@ -214,6 +214,12 @@ class CBXResume {
 		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_honor_award', $plugin_admin,
 			'cbxresume_resume_edit_add_honor_award' );
 
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_test_score', $plugin_admin,
+			'cbxresume_resume_edit_add_test_score' );
+
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_organization', $plugin_admin,
+			'cbxresume_resume_edit_add_organization' );
+
 
 	} // end method define_admin_hooks()
 

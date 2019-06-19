@@ -549,6 +549,44 @@ class CBXResume_Admin {
 
 
 	/**
+	 * Add new test score template.
+	 */
+	public function cbxresume_resume_edit_add_test_score(){
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::resumeAdd_Test_Score_Field( $last_count_val );
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_test_score
+
+
+	/**
+	 * Add new organization template.
+	 */
+	public function cbxresume_resume_edit_add_organization(){
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::resumeAdd_Organization_Field( $last_count_val );
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_organization
+
+
+
+
+	/**
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    1.0.0

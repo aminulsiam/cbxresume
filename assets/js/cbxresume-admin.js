@@ -254,7 +254,64 @@
             $(this).closest('.cbxresume_honor_award').remove();
         });
 
-        // end of project section -----------------------------//
+        // end of honor & awards section -----------------------------//
+
+
+
+
+        // Add test score by Ajax Request
+        $(".cbxresume_section_test_score").on('click', '.cbxresume_test_score_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "test_score";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of publication add functionality
+
+
+        // remove organization field
+        $('.cbxresume_section_test_score').on('click', '.cbxresume_test_score_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_test_score').remove();
+        });
+
+        // end of test_score section -----------------------------//
+
+
+
+        // Add test score by Ajax Request
+        $(".cbxresume_section_organization").on('click', '.cbxresume_organization_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "organization";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of publication add functionality
+
+
+        // remove publication field
+        $('.cbxresume_section_organization').on('click', '.cbxresume_organization_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_organization').remove();
+        });
+
+        // end of test_score section -----------------------------//
+
+
 
 
         /**

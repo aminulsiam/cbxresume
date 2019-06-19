@@ -181,7 +181,7 @@ class CBXResumeHelper {
 
 		return $field;
 
-	}// end method resumeAddEducationField
+	}// end method resumeAdd_Education_Field
 
 	/**
 	 * Add Experience field is create form here.
@@ -222,7 +222,7 @@ class CBXResumeHelper {
 
 		return $field;
 
-	} // end method resumeAddExperienceField
+	} // end method resumeAdd_Experience_Field
 
 
 	/**
@@ -260,7 +260,7 @@ class CBXResumeHelper {
 
 		return $field;
 
-	} // end method resumeAddLanguageField
+	} // end method resumeAdd_Language_Field
 
 
 	/**
@@ -291,7 +291,7 @@ class CBXResumeHelper {
 
 		return $field;
 
-	} // end method resumeAddVolunteer
+	} // end method resumeAdd_License_Field
 
 
 	/**
@@ -564,6 +564,124 @@ class CBXResumeHelper {
 
 
 	} // end method resumeAdd_Honors_Awards_Field
+
+
+	/**
+	 * Add Test score field is create form here.
+	 *
+	 * @param int $last_count_val
+	 *
+	 * @return string
+	 */
+	public static function resumeAdd_Test_Score_Field( $last_count_val ) {
+
+		$field = '<div class="cbxresume_test_score">';
+
+		$field .= '<input type="text" name="cbxresume[test_score][' . $last_count_val . '][test_name]" 
+				   placeholder="' . esc_html__( 'write your test name', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[test_score][' . $last_count_val . '][associated_with]" 
+				   placeholder="' . esc_html__( 'Associated with ', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[test_score][' . $last_count_val . '][score]" 
+				   placeholder="' . esc_html__( 'Score', 'cbxresume' ) . '" />';
+
+
+		$test_score_month = CBXResumeHelper::getResumeMonth();
+
+		$field .= '<label>  | ' . esc_html__( 'Start date', 'cbxresume' ) . '</label>';
+
+		$field .= '<select name="cbxresume[test_score][' . $last_count_val . '][month]">
+					<option value="">' . esc_html__( 'Month', 'cbxresume' ) . '</option>';
+
+		foreach ( $test_score_month as $key => $month ) {
+			$field .= '<option value="' . $key . '">' . $month . '</option>';
+		}
+
+		$field .= '</select>';
+
+
+		$field .= '<select name="cbxresume[test_score][' . $last_count_val . '][year]">
+					<option value="">' . esc_html__( 'Year', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select> | ';
+
+
+		$field .= '<input type = "text" name = "cbxresume[test_score][' . $last_count_val . '][description]" 
+				   placeholder = "' . esc_html__( 'Description', 'cbxresume' ) . '" />
+				   
+				   <a href="#" class="button cbxresume_test_score_remove">
+				   <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		return $field;
+
+	} // end method resumeAdd_Test_Score_Field
+
+
+	/**
+	 * Add Skill field is create form here.
+	 *
+	 * @param int $last_count_val
+	 *
+	 * @return string
+	 */
+	public static function resumeAdd_Organization_Field( $last_count_val ) {
+
+		$field = '<div class="cbxresume_test_score">';
+
+		$field .= '<input type="text" name="cbxresume[organization][' . $last_count_val . '][name]" 
+				   placeholder="' . esc_html__( 'write your organization name', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[organization][' . $last_count_val . '][position_held]" 
+				   placeholder="' . esc_html__( 'Position ', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[organization][' . $last_count_val . '][assciated_with]" 
+				   placeholder="' . esc_html__( 'Associated with', 'cbxresume' ) . '" />';
+
+
+		$organization_month = CBXResumeHelper::getResumeMonth();
+
+		$field .= '<label>  | ' . esc_html__( 'Start date', 'cbxresume' ) . '</label>';
+
+		$field .= '<select name="cbxresume[organization][' . $last_count_val . '][start_month]">
+					<option value="">' . esc_html__( 'Month', 'cbxresume' ) . '</option>';
+
+		foreach ( $organization_month as $key => $month ) {
+			$field .= '<option value="' . $key . '">' . $month . '</option>';
+		}
+
+		$field .= '</select>';
+
+
+		$field .= '<select name="cbxresume[organization][' . $last_count_val . '][start_year]">
+					<option value="">' . esc_html__( 'Year', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select> | ';
+
+
+		$field .= '<input type = "text" name = "cbxresume[organization][' . $last_count_val . '][description]" 
+				   placeholder = "' . esc_html__( 'Description', 'cbxresume' ) . '" />
+				   
+				   <a href="#" class="button cbxresume_organization_remove">
+				   <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		return $field;
+
+	} // end method resumeAdd_Test_Score_Field
 
 
 	/**
