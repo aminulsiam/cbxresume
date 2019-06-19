@@ -311,6 +311,31 @@
 
         // end of test_score section -----------------------------//
 
+        // Add test score by Ajax Request
+        $(".cbxresume_section_patent").on('click', '.cbxresume_patent_add', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var $busy = parseInt($this.data('busy'));
+
+            var $class = "patent";
+
+            var $last_count_val = cbxresumeSectionLastCount($class);
+
+            getFieldByAjaxReq($this, $class, $last_count_val, $busy);
+
+        }); // end of publication add functionality
+
+
+        // remove publication field
+        $('.cbxresume_section_patent').on('click', '.cbxresume_patent_remove', function (e) {
+            e.preventDefault();
+
+            $(this).closest('.cbxresume_patent').remove();
+        });
+
+        // end of test_score section -----------------------------//
+
 
 
 

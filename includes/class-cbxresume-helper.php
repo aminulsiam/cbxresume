@@ -685,6 +685,83 @@ class CBXResumeHelper {
 
 
 	/**
+	 * Add patent field is create form here.
+	 *
+	 * @param int $last_count_val
+	 *
+	 * @return string
+	 */
+	public static function resumeAdd_patent_Field($last_count_val){
+
+
+		$field = '<div class="cbxresume_patent">';
+
+		$field .= '<input type="text" name="cbxresume[patent][' . $last_count_val . '][title]" 
+				   placeholder="' . esc_html__( 'write your organization name', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[patent][' . $last_count_val . '][office]" 
+				   placeholder="' . esc_html__( 'Position ', 'cbxresume' ) . '" /> 
+				   
+				   <input type="text" name="cbxresume[patent][' . $last_count_val . '][application_number]" 
+				   placeholder="' . esc_html__( 'Associated with', 'cbxresume' ) . '" />';
+
+
+		$organization_month = CBXResumeHelper::getResumeMonth();
+
+		$field .= '<label>  | ' . esc_html__( 'Issue date', 'cbxresume' ) . '</label>';
+
+		$field .= '<select name="cbxresume[patent][' . $last_count_val . '][issue_month]">
+					<option value="">' . esc_html__( 'Month', 'cbxresume' ) . '</option>';
+
+		foreach ( $organization_month as $key => $month ) {
+			$field .= '<option value="' . $key . '">' . $month . '</option>';
+		}
+
+		$field .= '</select>';
+
+		$field .= '</select>';
+
+		$field .= '<select name="cbxresume[patent][' . $last_count_val . '][issue_day]">
+					<option value="">' . esc_html__( 'Day', 'cbxresume' ) . '</option>';
+
+		for ( $i = 1; $i <= 31; $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select>';
+
+
+		$field .= '<select name="cbxresume[patent][' . $last_count_val . '][issue_year]">
+					<option value="">' . esc_html__( 'Year', 'cbxresume' ) . '</option>';
+
+		for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			$field .= '<option value="' . $i . '">' . $i . '</option>';
+		}
+
+		$field .= '</select> | ';
+
+
+		$field .= '<input type = "text" name = "cbxresume[patent][' . $last_count_val . '][patent_url]" 
+				   placeholder = "' . esc_html__( 'Patent url', 'cbxresume' ) . '" />
+				   
+				   <input type = "text" name = "cbxresume[patent][' . $last_count_val . '][description]" 
+				   placeholder = "' . esc_html__( 'Description', 'cbxresume' ) . '" />
+				   
+				   <a href="#" class="button cbxresume_patent_remove">
+				   <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>'
+		          . esc_html__( 'Remove', 'cbxresume' ) . '</a>';
+
+		$field .= '</div>';
+
+		return $field;
+
+    } // end method resumeAdd_patent_Field
+
+
+
+
+
+	/**
 	 * Get all language proficiency list form here.
 	 *
 	 * @return array

@@ -41,7 +41,7 @@ if ( isset( $_GET['id'] ) && intval( $_GET['id'] ) > 0 ) {
 
 	$cbxresume_data = CBXResumeHelper::getResumeData( $wpdb, $resume_id );
 
-	//write_log( $cbxresume_data );
+	write_log( $cbxresume_data );
 
 }
 
@@ -1030,7 +1030,7 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                             </p>
 
 											<?php
-											// Get license last count from db
+											// Get honor & award last count from db
 											$honor_award_last_count = isset( $cbxresume_data['honor_award_last_count']
 											) ? intval( $cbxresume_data['honor_award_last_count'] ) : 0;
 											?>
@@ -1190,7 +1190,7 @@ if ( sizeof( $invalid_fields ) > 0 ) {
 	                                                               esc_attr__( $org['assciated_with'] ); ?>"/>
 
 
-                                                            <select name="cbxresume[test_score][<?php echo
+                                                            <select name="cbxresume[organization][<?php echo
 	                                                        esc_attr( $key ); ?>][month]">
 
 		                                                        <?php
@@ -1205,7 +1205,7 @@ if ( sizeof( $invalid_fields ) > 0 ) {
 		                                                        <?php } ?>
                                                             </select>
 
-                                                            <select name="cbxresume[test_score][<?php echo
+                                                            <select name="cbxresume[organization][<?php echo
 	                                                        esc_attr( $key ); ?>][year]">
 		                                                        <?php
 		                                                        for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
@@ -1259,6 +1259,139 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                                    value="<?php echo esc_attr( $test_score_last_count ); ?>"/>
 
                                         </div> <!-- end cbxresume test score section -->
+
+
+
+
+
+                                        <!--  cbxresume patent section -->
+	                                    <?php
+	                                    $cbxresume_patent = isset( $cbxresume_data['patent'] ) ?
+		                                    $cbxresume_data['patent'] : array();
+
+	                                    if ( ! is_array( $cbxresume_patent ) ) {
+		                                    $cbxresume_patent = array();
+	                                    }
+	                                    ?>
+
+                                        <h2><?php echo esc_html__( 'Patents', 'cbxresume' ); ?></h2>
+                                        <div class="cbxresume_section cbxresume_section_patent">
+
+                                            <div class="cbxresume_patents">
+			                                    <?php
+			                                    if ( sizeof( $cbxresume_patent ) > 0 ) {
+				                                    foreach ( $cbxresume_patent as $key => $patent ) {
+					                                    ?>
+                                                        <div class="cbxresume_patent">
+
+                                                            <input type="text"
+                                                                   name="cbxresume[patent][<?php echo
+						                                           esc_attr( $key ); ?>][title]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $patent['title'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[patent][<?php echo
+	                                                               esc_attr( $key ); ?>][office]"
+                                                                   value="<?php echo esc_attr__(
+		                                                               $patent['office'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[patent][<?php echo
+	                                                               esc_attr( $key ); ?>][application_number]"
+                                                                   value="<?php echo esc_attr__(
+		                                                               $patent['application_number'] ); ?>"/>
+
+
+                                                            <select name="cbxresume[patent][<?php echo
+	                                                        esc_attr( $key ); ?>][issue_month]">
+
+		                                                        <?php
+		                                                        foreach ( $cbxresume_month as $p => $p_month ) {
+			                                                        ?>
+                                                                    <option value="<?php echo esc_attr( $p ); ?>"
+				                                                        <?php
+				                                                        selected( $patent['issue_month'], $p ); ?>>
+
+				                                                        <?php echo $p_month; ?>
+                                                                    </option>
+		                                                        <?php } ?>
+                                                            </select>
+
+                                                            <select name="cbxresume[patent][<?php echo
+	                                                        esc_attr( $key ); ?>][issue_day]">
+		                                                        <?php
+		                                                        for ( $i = 1; $i <= 31; $i ++ ) {
+			                                                        ?>
+                                                                    <option value="<?php echo esc_attr( $i ) ?>"
+				                                                        <?php selected( $patent['issue_day'], $i ); ?>>
+				                                                        <?php echo esc_html( $i ); ?>
+                                                                    </option>
+		                                                        <?php } ?>
+                                                            </select>
+
+                                                            <select name="cbxresume[patent][<?php echo
+	                                                        esc_attr( $key ); ?>][issue_year]">
+		                                                        <?php
+		                                                        for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
+			                                                        ?>
+                                                                    <option value="<?php echo esc_attr( $i ) ?>"
+				                                                        <?php selected( $patent['issue_year'], $i ); ?>>
+				                                                        <?php echo esc_html( $i ); ?>
+                                                                    </option>
+		                                                        <?php } ?>
+                                                            </select>
+
+
+
+
+
+                                                            <input type="text"
+                                                                   name="cbxresume[patent][<?php echo
+						                                           esc_attr( $key ); ?>][patent_url]"
+                                                                   value="<?php echo esc_attr__(
+	                                                                   $patent['patent_url'] ); ?>"/>
+
+                                                            <input type="text"
+                                                                   name="cbxresume[patent][<?php echo
+	                                                               esc_attr( $key ); ?>][description]"
+                                                                   value="<?php echo esc_attr__(
+		                                                               $patent['description'] ); ?>"/>
+
+
+                                                            <a href="#" class="button cbxresume_patent_remove">
+                                                                    <span class="dashicons dashicons-trash"
+                                                                          style="margin-top: 3px;margin-bottom :10px;
+                                                                            color: red;"></span><?php echo esc_html__(
+								                                    'Remove', 'cbxresume' ); ?></a>
+                                                        </div>
+					                                    <?php
+				                                    }
+			                                    }
+			                                    ?>
+                                            </div>
+
+                                            <!-- Add new patent button -->
+                                            <p>
+                                                <a data-busy="0" href="#" class="button cbxresume_patent_add">
+                                                    <span class="dashicons dashicons-plus-alt" style="margin-top:
+                                                    3px;color: #0baf63;"></span>
+				                                    <?php echo esc_html__( 'Add Patent', 'cbxresume' ); ?>
+                                                </a>
+                                            </p>
+
+		                                    <?php
+		                                    // Get patent last count from db
+		                                    $patent_last_count = isset( $cbxresume_data['patent_last_count'] ) ?
+			                                    intval( $cbxresume_data['patent_last_count'] ) : 0;
+		                                    ?>
+
+                                            <!-- cbx resume last count field -->
+                                            <input type="hidden" name="cbxresume[patent_last_count]"
+                                                   class="cbxresume_patent_last_count"
+                                                   value="<?php echo esc_attr( $patent_last_count ); ?>"/>
+
+                                        </div> <!--- end patent section --->
 
 
 

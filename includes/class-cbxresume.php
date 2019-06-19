@@ -220,6 +220,9 @@ class CBXResume {
 		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_organization', $plugin_admin,
 			'cbxresume_resume_edit_add_organization' );
 
+		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_patent', $plugin_admin,
+			'cbxresume_resume_edit_add_patent' );
+
 
 	} // end method define_admin_hooks()
 

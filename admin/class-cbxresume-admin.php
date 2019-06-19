@@ -584,6 +584,24 @@ class CBXResume_Admin {
 	} // end method cbxresume_resume_edit_add_organization
 
 
+	/**
+	 * Add new patent template.
+	 */
+	public function cbxresume_resume_edit_add_patent(){
+
+		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
+
+		$output = array();
+
+		$output['field'] = CBXResumeHelper::resumeAdd_patent_Field( $last_count_val );
+
+		echo json_encode( $output );
+
+		exit();
+
+	} // end method cbxresume_resume_edit_add_organization
+
+
 
 
 	/**
