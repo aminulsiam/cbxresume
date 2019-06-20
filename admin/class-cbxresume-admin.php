@@ -176,6 +176,36 @@ class CBXResume_Admin {
 
 
 	/**
+	 * Init all shortcodes
+	 */
+	public function init_shortcode() {
+		add_shortcode( 'cbxresume', array( $this, 'cbxresume_shortcode' ) );
+	} // end method init_shortcode
+
+
+	/**
+	 * shortcode [cbxresume] callback.
+	 *
+	 * @param $atts
+	 */
+	public function cbxresume_shortcode( $atts ) {
+
+		global $wpdb;
+
+		$atts = shortcode_atts( array(
+			'id' => '',
+		), $atts, 'cbxresume' );
+
+		$cbxresume_data = CBXResumeHelper::getResumeData( $wpdb, $atts );
+
+		$display_resume_data = CBXResumeHelper::displayResumeData( $cbxresume_data );
+
+		return $display_resume_data;
+
+	} // end method cbxresume_shortcode
+
+
+	/**
 	 * Submenu callback @function
 	 *
 	 * This function gives the output of submenu
@@ -551,7 +581,7 @@ class CBXResume_Admin {
 	/**
 	 * Add new test score template.
 	 */
-	public function cbxresume_resume_edit_add_test_score(){
+	public function cbxresume_resume_edit_add_test_score() {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
@@ -569,7 +599,7 @@ class CBXResume_Admin {
 	/**
 	 * Add new organization template.
 	 */
-	public function cbxresume_resume_edit_add_organization(){
+	public function cbxresume_resume_edit_add_organization() {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
@@ -587,7 +617,7 @@ class CBXResume_Admin {
 	/**
 	 * Add new patent template.
 	 */
-	public function cbxresume_resume_edit_add_patent(){
+	public function cbxresume_resume_edit_add_patent() {
 
 		$last_count_val = isset( $_POST['last_count'] ) ? intval( $_POST['last_count'] ) : 0;
 
@@ -600,8 +630,6 @@ class CBXResume_Admin {
 		exit();
 
 	} // end method cbxresume_resume_edit_add_organization
-
-
 
 
 	/**

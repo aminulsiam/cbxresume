@@ -223,6 +223,9 @@ class CBXResume {
 		$this->loader->add_action( 'wp_ajax_cbxresume_resume_edit_add_patent', $plugin_admin,
 			'cbxresume_resume_edit_add_patent' );
 
+		// init cbxresume shortcode
+		$this->loader->add_action( 'init', $plugin_admin, 'init_shortcode' );
+
 
 	} // end method define_admin_hooks()
 
