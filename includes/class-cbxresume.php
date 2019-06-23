@@ -224,7 +224,7 @@ class CBXResume {
 			'cbxresume_resume_edit_add_patent' );
 
 		// init cbxresume shortcode
-		$this->loader->add_action( 'init', $plugin_admin, 'init_shortcode' );
+		//$this->loader->add_action( 'init', $plugin_admin, 'init_shortcode' );
 
 
 	} // end method define_admin_hooks()
@@ -262,6 +262,9 @@ class CBXResume {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		// init cbxresume shortcode
+		$this->loader->add_action( 'init', $plugin_public, 'init_shortcode' );
 
 
 	}// end of define_public_hooks methods

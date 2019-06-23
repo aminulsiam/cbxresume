@@ -1,7 +1,7 @@
 (function ($) {
-	'use strict';
+    'use strict';
 
-	$(document).ready(function(){
+    $(document).ready(function () {
 
-	});
+    });
 })(jQuery);

@@ -257,8 +257,6 @@
         // end of honor & awards section -----------------------------//
 
 
-
-
         // Add test score by Ajax Request
         $(".cbxresume_section_test_score").on('click', '.cbxresume_test_score_add', function (e) {
             e.preventDefault();
@@ -283,7 +281,6 @@
         });
 
         // end of test_score section -----------------------------//
-
 
 
         // Add test score by Ajax Request
@@ -335,8 +332,6 @@
         });
 
         // end of test_score section -----------------------------//
-
-
 
 
         /**

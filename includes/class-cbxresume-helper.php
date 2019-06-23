@@ -91,34 +91,30 @@ class CBXResumeHelper {
 	/**
 	 * Get resume data from database
 	 *
-	 * @param $wpdb , global properties of WP
-	 * @param @int $resume_id, Get resume data by this variable
+	 * @param int $id
 	 *
-	 * @return array
+	 * @return mixed
 	 */
-	public static function getResumeData( $wpdb, $atts ) {
+	public static function getResumeData( $id ) {
+		global $wpdb;
 
 		$resume_table = $wpdb->prefix . "cbxresumes";
 
+		$resume = null;
 
-		if ( '' == $atts['id'] & is_array( $atts ) ) {
+		if ( $id == 0 & is_user_logged_in() ) {
 
-			$data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE add_by=%d ORDER BY id DESC
- lIMIT 1", get_current_user_id() ), 'ARRAY_A' );
+			$resume = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE add_by=%d ORDER BY id DESC
+ lIMIT 1", get_current_user_id() ), 'ARRAY_A' );;
 
-			$cbxresume_data = maybe_unserialize( $data['resume'] );
-
-			return $cbxresume_data;
+			return $resume;
 		}
 
 		//Get the data for update resume by indivisual id
-		$data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE id=%d", $atts ),
+		$resume = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE id=%d", $id ),
 			'ARRAY_A' );
 
-		$cbxresume_data = maybe_unserialize( $data['resume'] );
-
-		return $cbxresume_data;
-
+		return $resume;
 
 	} // end method getCbxresumeData
 
@@ -158,10 +154,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Education_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Education_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_education">
 					<input type="text" name="cbxresume[education][' . $last_count_val . '][institute]"
@@ -211,10 +204,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Experience_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Experience_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_experience">';
 
@@ -256,10 +246,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Language_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Language_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_language">';
 
@@ -297,10 +284,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_License_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_License_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_license">';
 
@@ -331,10 +315,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Volunteer_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Volunteer_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_volunteer">';
 
@@ -458,10 +439,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Course_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Course_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_course">';
 
@@ -491,10 +469,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Project_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Project_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_project">';
 
@@ -554,10 +529,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Honors_Awards_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Honors_Awards_Field( $last_count_val ) {
 
 
 		$field = '<div class="cbxresume_honor_award">';
@@ -618,10 +590,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Test_Score_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Test_Score_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_test_score">';
 
@@ -680,10 +649,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_Organization_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_Organization_Field( $last_count_val ) {
 
 		$field = '<div class="cbxresume_test_score">';
 
@@ -742,10 +708,7 @@ class CBXResumeHelper {
 	 *
 	 * @return string
 	 */
-	public
-	static function resumeAdd_patent_Field(
-		$last_count_val
-	) {
+	public static function resumeAdd_patent_Field( $last_count_val ) {
 
 
 		$field = '<div class="cbxresume_patent">';
@@ -817,8 +780,7 @@ class CBXResumeHelper {
 	 *
 	 * @return array
 	 */
-	public
-	static function getLanguageProficiency() {
+	public static function getLanguageProficiency() {
 
 		$language_proficiency = array(
 			'elementary'           => esc_html__( 'Elementary proficiency', 'cbxresume' ),
@@ -838,10 +800,9 @@ class CBXResumeHelper {
 	 *
 	 * @return array
 	 */
-	public
-	static function getResumeMonth() {
+	public static function getResumeMonth() {
 
-		$publication_month = array(
+		$resume_month = array(
 			'jan' => esc_html__( 'January', 'cbxresume' ),
 			'feb' => esc_html__( 'February', 'cbxresume' ),
 			'mar' => esc_html__( 'March', 'cbxresume' ),
@@ -856,224 +817,38 @@ class CBXResumeHelper {
 			'dec' => esc_html__( 'December', 'cbxresume' )
 		);
 
-		return $publication_month;
+		return $resume_month;
 
-	} // end method getLanguageProficiency
+	}//end method getLanguageProficiency
 
 	/**
 	 * Get cbxresume data for shortcode
 	 *
 	 * @param $cbxresume_data
 	 */
-	public
-	static function displayResumeData(
-		$cbxresume_data
-	) {
+	public static function displayResumeHtml( $resume_data ) {
+
+		$resume = isset( $resume_data['resume'] ) ? maybe_unserialize( $resume_data['resume'] ) : array();
 
 		?>
-        <h3><?php echo esc_html__( 'Education', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_education = isset( $cbxresume_data['education'] ) ? $cbxresume_data['education'] : array();
+        <div class="cbxresume_details_wrap">
 
-			foreach ( $cbxresume_education as $education ) {
-				?>
-                <li><?php esc_html_e( $education['institute'] ) ?></li>
-                <li><?php esc_html_e( $education['degree'] ) ?></li>
-                <li><?php esc_html_e( $education['field'] ) ?></li>
-                <li><?php esc_html_e( $education['from'] ) ?></li>
-                <li><?php esc_html_e( $education['to'] ) ?></li>
-                <li><?php esc_html_e( $education['grade'] ) ?></li>
-                <li><?php esc_html_e( $education['activity'] ) ?></li>
-                <li><?php esc_html_e( $education['description'] ) ?></li>
-			<?php } ?>
-        </ul>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/education.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/experience.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/language.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/license.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/volunteer.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/skill.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/publication.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/course.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/project.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/honors_awards.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/test_score.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/organization.php'; ?>
+			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/patents.php'; ?>
 
-        <h3><?php echo esc_html__( 'Experience', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_experience = isset( $cbxresume_data['experience'] ) ? $cbxresume_data['experience'] : array();
-
-			foreach ( $cbxresume_experience as $experience ) {
-				?>
-                <li><?php esc_html_e( $experience['title'] ) ?></li>
-                <li><?php esc_html_e( $experience['company'] ) ?></li>
-                <li><?php esc_html_e( $experience['start_date'] ) ?></li>
-                <li><?php esc_html_e( $experience['description'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-
-        <h3><?php echo esc_html__( 'Language', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_language = isset( $cbxresume_data['language'] ) ? $cbxresume_data['language'] : array();
-
-			foreach ( $cbxresume_language as $language ) {
-				?>
-                <li><?php esc_html_e( $language['language_name'] . " : " . $language['language_proficiency'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-        <h3><?php echo esc_html__( 'License', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_license = isset( $cbxresume_data['license'] ) ? $cbxresume_data['license'] : array();
-
-			foreach ( $cbxresume_license as $license ) {
-				?>
-                <li><?php esc_html_e( $license['name'] ) ?></li>
-                <li><?php esc_html_e( $license['issuing_organization'] ) ?></li>
-                <li><?php esc_html_e( $license['issue_date'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-
-        <h3><?php echo esc_html__( 'Volunteer', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_volunteer = isset( $cbxresume_data['volunteer'] ) ? $cbxresume_data['volunteer'] : array();
-
-			foreach ( $cbxresume_volunteer as $volunteer ) {
-				?>
-                <li><?php esc_html_e( $volunteer['organization'] ) ?></li>
-                <li><?php esc_html_e( $volunteer['role'] ) ?></li>
-                <li><?php esc_html_e( $volunteer['cause'] ) ?></li>
-                <li><?php esc_html_e( $volunteer['from'] ) ?></li>
-                <li><?php esc_html_e( $volunteer['to'] ) ?></li>
-                <li><?php esc_html_e( $volunteer['description'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-        <h3><?php echo esc_html__( 'Skill', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_skill = isset( $cbxresume_data['skill'] ) ? $cbxresume_data['skill'] : array();
-
-			foreach ( $cbxresume_skill as $skill ) {
-				?>
-                <li><?php esc_html_e( $skill ) ?></li>
-			<?php } ?>
-        </ul>
-
-
-        <h3><?php echo esc_html__( 'Publication', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_publication = isset( $cbxresume_data['publication'] ) ? $cbxresume_data['publication'] : array();
-
-			foreach ( $cbxresume_publication as $publication ) {
-				?>
-                <li><?php esc_html_e( $publication['title'] ) ?></li>
-                <li><?php esc_html_e( $publication['publisher'] ) ?></li>
-                <li><?php esc_html_e( $publication['year'] ) ?></li>
-                <li><?php esc_html_e( $publication['month'] ) ?></li>
-                <li><?php esc_html_e( $publication['day'] ) ?></li>
-                <li><?php esc_html_e( $publication['writter'] ) ?></li>
-                <li><?php esc_html_e( $publication['publication_url'] ) ?></li>
-                <li><?php esc_html_e( $publication['description'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-
-        <h3><?php echo esc_html__( 'Course', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_course = isset( $cbxresume_data['course'] ) ? $cbxresume_data['course'] : array();
-
-			foreach ( $cbxresume_course as $course ) {
-				?>
-                <li><?php esc_html_e( $course['name'] ) ?></li>
-                <li><?php esc_html_e( $course['number'] ) ?></li>
-                <li><?php esc_html_e( $course['associated_with'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-        <h3><?php echo esc_html__( 'Project', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_project = isset( $cbxresume_data['project'] ) ? $cbxresume_data['project'] : array();
-
-			foreach ( $cbxresume_project as $project ) {
-				?>
-                <li><?php esc_html_e( $project['project_name'] ) ?></li>
-                <li><?php esc_html_e( $project['month'] ) ?></li>
-                <li><?php esc_html_e( $project['year'] ) ?></li>
-                <li><?php esc_html_e( $project['writter'] ) ?></li>
-                <li><?php esc_html_e( $project['project_url'] ) ?></li>
-                <li><?php esc_html_e( $project['associated_with'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-        <h3><?php echo esc_html__( 'Honors & Awards', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_honors = isset( $cbxresume_data['honor_award'] ) ? $cbxresume_data['honor_award'] : array();
-
-			foreach ( $cbxresume_honors as $honor ) {
-				?>
-                <li><?php esc_html_e( $honor['title'] ) ?></li>
-                <li><?php esc_html_e( $honor['associated_with'] ) ?></li>
-                <li><?php esc_html_e( $honor['issuer'] ) ?></li>
-                <li><?php esc_html_e( $honor['month'] ) ?></li>
-                <li><?php esc_html_e( $honor['year'] ) ?></li>
-                <li><?php esc_html_e( $honor['description'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-        <h3><?php echo esc_html__( 'Test score', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_test_score = isset( $cbxresume_data['test_score'] ) ? $cbxresume_data['test_score'] : array();
-
-			foreach ( $cbxresume_test_score as $test_score ) {
-				?>
-                <li><?php esc_html_e( $test_score['test_name'] ) ?></li>
-                <li><?php esc_html_e( $test_score['associated_with'] ) ?></li>
-                <li><?php esc_html_e( $test_score['score'] ) ?></li>
-                <li><?php esc_html_e( $test_score['month'] ) ?></li>
-                <li><?php esc_html_e( $test_score['year'] ) ?></li>
-                <li><?php esc_html_e( $test_score['description'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-        <h3><?php echo esc_html__( 'Organization', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_organization = isset( $cbxresume_data['organization'] ) ? $cbxresume_data['organization'] : array();
-
-			foreach ( $cbxresume_organization as $org ) {
-				?>
-                <li><?php esc_html_e( $org['name'] ) ?></li>
-                <li><?php esc_html_e( $org['position_held'] ) ?></li>
-                <li><?php esc_html_e( $org['assciated_with'] ) ?></li>
-                <li><?php esc_html_e( $org['start_month'] ) ?></li>
-                <li><?php esc_html_e( $org['start_year'] ) ?></li>
-                <li><?php esc_html_e( $org['description'] ) ?></li>
-			<?php } ?>
-        </ul>
-
-        <h3><?php echo esc_html__( 'Patents', 'cbxresume' ); ?></h3>
-        <ul>
-			<?php
-			$cbxresume_patent = isset( $cbxresume_data['patent'] ) ? $cbxresume_data['patent'] : array();
-
-			foreach ( $cbxresume_patent as $patent ) {
-				?>
-                <li><?php esc_html_e( $patent['title'] ) ?></li>
-                <li><?php esc_html_e( $patent['office'] ) ?></li>
-                <li><?php esc_html_e( $patent['application_number'] ) ?></li>
-                <li><?php esc_html_e( $patent['issue_month'] ) ?></li>
-                <li><?php esc_html_e( $patent['issue_day'] ) ?></li>
-                <li><?php esc_html_e( $patent['issue_year'] ) ?></li>
-                <li><?php esc_html_e( $patent['patent_url'] ) ?></li>
-                <li><?php esc_html_e( $patent['description'] ) ?></li>
-			<?php } ?>
-        </ul>
-
+        </div>
 
 		<?php
-	} // end method displayResumeData
-
-
+	}// end method displayResumeHtml
 }//end class CBXResumeHelper

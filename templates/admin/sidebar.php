@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<?php
 				include_once( ABSPATH . WPINC . '/feed.php' );
 				if ( function_exists( 'fetch_feed' ) ) {
-					$feed = fetch_feed( 'http://codeboxr.com/products/feed/?product_cat=wpplugins' );
+					$feed = fetch_feed( 'https://codeboxr.com/products/feed/?product_cat=wpplugins' );
 
 					if ( ! is_wp_error( $feed ) ) : $feed->init();
 						$feed->set_output_encoding( 'UTF-8' ); // this is the encoding parameter, and can be left unchanged in almost every case

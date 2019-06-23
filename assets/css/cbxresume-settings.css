@@ -1,35 +1,35 @@
 /** WordPress 3.8 Fix **/
 .form-table th {
-	padding: 20px 10px;
+    padding: 20px 10px;
 }
 
 #wpbody-content .metabox-holder {
-	padding-top: 5px;
+    padding-top: 5px;
 }
 
 .chosen-container-single, .chosen-container-multi {
-	min-width: 244px !important;
+    min-width: 244px !important;
 }
 
 #poststuff h2.nav-tab-wrapper {
-	margin-bottom: 0px !important;
-	padding-bottom: 0px;;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px;;
 }
 
 .nav-tab-active, .nav-tab-active:hover {
-	background: #0085ba !important;
-	color: #fff;
+    background: #0085ba !important;
+    color: #fff;
 }
 
 .nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover, .postbox {
-	border-top: 2px solid #0085ba;
+    border-top: 2px solid #0085ba;
 }
 
 h3.setting_heading_title, h4.setting_heading_subtitle {
-	background: url('../images/heading-img.png') center center repeat-x;
-	margin-top: 0px;
+    background: url('../images/heading-img.png') center center repeat-x;
+    margin-top: 0px;
 }
 
-.select2-container{
-	width: 100% !important;
+.select2-container {
+    width: 100% !important;
 }

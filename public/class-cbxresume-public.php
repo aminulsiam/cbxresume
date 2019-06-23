@@ -65,6 +65,44 @@ class CBXResume_Public {
 		register_widget( 'CBXBusinessHoursFrontWidget' );
 	}// end of init_register_widgets method
 
+
+	/**
+	 * Init all shortcodes
+	 */
+	public function init_shortcode() {
+		add_shortcode( 'cbxresume', array( $this, 'cbxresume_shortcode' ) );
+	}//end method init_shortcode
+
+
+	/**
+	 * Shortcode [cbxresume] callback.
+	 *
+	 * @param $atts
+	 *
+	 * @return string|void
+	 */
+	public function cbxresume_shortcode( $atts ) {
+
+		$atts = shortcode_atts( array(
+			'id' => '',
+		), $atts, 'cbxresume' );
+
+
+		$id = intval( $atts['id'] );
+
+		$resume_data = CBXResumeHelper::getResumeData( $id );
+
+		if ( $resume_data !== null ) {
+			return CBXResumeHelper::displayResumeHtml( $resume_data );
+		} else {
+			return '';
+		}
+	}//end method cbxresume_shortcode
+
+
+
+
+
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *

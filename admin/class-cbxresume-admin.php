@@ -172,37 +172,7 @@ class CBXResume_Admin {
 			array( $this, 'display_resume_submenu_page' )
 		);
 
-	} // end method create_admin_menu
-
-
-	/**
-	 * Init all shortcodes
-	 */
-	public function init_shortcode() {
-		add_shortcode( 'cbxresume', array( $this, 'cbxresume_shortcode' ) );
-	} // end method init_shortcode
-
-
-	/**
-	 * shortcode [cbxresume] callback.
-	 *
-	 * @param $atts
-	 */
-	public function cbxresume_shortcode( $atts ) {
-
-		global $wpdb;
-
-		$atts = shortcode_atts( array(
-			'id' => '',
-		), $atts, 'cbxresume' );
-
-		$cbxresume_data = CBXResumeHelper::getResumeData( $wpdb, $atts );
-
-		$display_resume_data = CBXResumeHelper::displayResumeData( $cbxresume_data );
-
-		return $display_resume_data;
-
-	} // end method cbxresume_shortcode
+	}//end method create_admin_menu
 
 
 	/**

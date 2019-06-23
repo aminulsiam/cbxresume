@@ -25,7 +25,6 @@ class CBXResume_List_Table extends WP_List_Table {
 	}
 
 
-
 	/**
 	 * Callback for collumn 'name'
 	 *
@@ -35,7 +34,7 @@ class CBXResume_List_Table extends WP_List_Table {
 	 */
 
 	function column_id( $item ) {
-		return    '<a href="' . admin_url( 'admin.php?page=cbxresumes&view=addedit&id=' . $item['id'] ) . '">' . esc_html($item['id']) . '</a>';
+		return '<a href="' . admin_url( 'admin.php?page=cbxresumes&view=addedit&id=' . $item['id'] ) . '">' . esc_html( $item['id'] ) . '</a>';
 	}
 
 
@@ -61,8 +60,8 @@ class CBXResume_List_Table extends WP_List_Table {
 
 	function get_columns() {
 		$columns = array(
-			'cb'       => '<input type="checkbox" />', //Render a checkbox instead of text
-			'id'       => esc_html__( 'ID', 'cbxresume' )
+			'cb' => '<input type="checkbox" />', //Render a checkbox instead of text
+			'id' => esc_html__( 'ID', 'cbxresume' )
 		);
 
 		return $columns;
@@ -160,7 +159,13 @@ class CBXResume_List_Table extends WP_List_Table {
 	 *
 	 * @return array|null|object
 	 */
-	public static function getcbxresumeData( $search = '', $orderby = 'id', $order = 'desc', $perpage = 20, $page = 1 ) {
+	public static function getcbxresumeData(
+		$search = '',
+		$orderby = 'id',
+		$order = 'desc',
+		$perpage = 20,
+		$page = 1
+	) {
 
 		global $wpdb;
 

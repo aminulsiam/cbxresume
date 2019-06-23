@@ -1,6 +1,7 @@
 .cbxbusinesshours-icon {
     position: relative;
 }
+
 .cbxbusinesshours-icon:before {
     content: ' ';
     background-image: url(businesshours.png);
