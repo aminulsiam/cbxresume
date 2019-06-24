@@ -17,12 +17,20 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_test_score_before', $resume_data ); ?>
 	<div class="cbxresume_details_test_score">
-		<?php do_action( 'cbxresume_details_test_score_start', $resume_data ); ?>
+		<?php
+
+        $resume_test_score = isset( $resume['test_score'] ) ? $resume['test_score'] : array();
+
+        if(empty($resume_test_score)){
+            return false;
+        }
+
+        do_action( 'cbxresume_details_test_score_start', $resume_data );
+        ?>
 
 		<h3><?php echo esc_html__( 'Test score', 'cbxresume' ); ?></h3>
 		<ul>
 			<?php
-			$resume_test_score = isset( $resume['test_score'] ) ? $resume['test_score'] : array();
 
 			foreach ( $resume_test_score as $test_score ) {
 				?>

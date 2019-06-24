@@ -116,7 +116,8 @@ if ( sizeof( $invalid_fields ) > 0 ) {
                                 <form class="cbxresume_form"
                                       action="<?php echo admin_url( 'admin.php?page=cbxresumes&view=addedit&id=' . $resume_id ) ?>"
                                       method="post">
-                                    
+
+
                                     <div id="cbxresume_sections">
 
 										<?php
@@ -158,6 +159,8 @@ if ( sizeof( $invalid_fields ) > 0 ) {
 
 										include_once CBXRESUME_ROOT_PATH
 										             .'templates/admin/resume_edit_sections/patents.php';
+
+
 										?>
 
 

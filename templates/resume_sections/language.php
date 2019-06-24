@@ -17,13 +17,19 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_language_before', $resume_data ); ?>
     <div class="cbxresume_details_language">
-		<?php do_action( 'cbxresume_details_language_start', $resume_data ); ?>
+		<?php
+		$resume_language = isset( $resume['language'] ) ? $resume['language'] : array();
+
+		if(empty($resume_language)){
+		    return false;
+        }
+
+		do_action( 'cbxresume_details_language_start', $resume_data );
+		?>
 
         <h3><?php echo esc_html__( 'Language', 'cbxresume' ); ?></h3>
         <ul>
 			<?php
-			$resume_language = isset( $resume['language'] ) ? $resume['language'] : array();
-
 			foreach ( $resume_language as $language ) {
 				?>
                 <li><?php esc_html_e( $language['language_name'] . " : " . $language['language_proficiency'] ) ?></li>

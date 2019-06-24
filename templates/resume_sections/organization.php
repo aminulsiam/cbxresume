@@ -17,12 +17,21 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_organization_before', $resume_data ); ?>
 	<div class="cbxresume_details_organization">
-		<?php do_action( 'cbxresume_details_organization_start', $resume_data ); ?>
+		<?php
+
+		$resume_organization = isset( $resume['organization'] ) ? $resume['organization'] : array();
+
+		if(empty($resume_organization)){
+		    return false;
+        }
+
+        do_action( 'cbxresume_details_organization_start', $resume_data );
+        ?>
 
 		<h3><?php echo esc_html__( 'Organization', 'cbxresume' ); ?></h3>
 		<ul>
 			<?php
-			$resume_organization = isset( $resume['organization'] ) ? $resume['organization'] : array();
+
 
 			foreach ( $resume_organization as $org ) {
 				?>

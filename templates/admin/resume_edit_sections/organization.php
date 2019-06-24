@@ -53,7 +53,7 @@ if ( ! is_array( $resume_organization ) ) {
 
 
                     <select name="cbxresume[organization][<?php echo
-					esc_attr( $key ); ?>][month]">
+					esc_attr( $key ); ?>][start_month]">
 
 						<?php
 						foreach ( $cbxresume_month as $p => $p_month ) {
@@ -68,7 +68,7 @@ if ( ! is_array( $resume_organization ) ) {
                     </select>
 
                     <select name="cbxresume[organization][<?php echo
-					esc_attr( $key ); ?>][year]">
+					esc_attr( $key ); ?>][start_year]">
 						<?php
 						for ( $i = 2000; $i <= date( 'Y' ); $i ++ ) {
 							?>

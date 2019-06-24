@@ -16,27 +16,35 @@ if ( ! defined( 'WPINC' ) ) {
 }
 ?>
 <?php do_action( 'cbxresume_details_publication_before', $resume_data ); ?>
-	<div class="cbxresume_details_publication">
-		<?php do_action( 'cbxresume_details_publication_start', $resume_data ); ?>
+    <div class="cbxresume_details_publication">
+		<?php
 
-		<h3><?php echo esc_html__( 'Publication', 'cbxresume' ); ?></h3>
-		<ul>
+		$resume_publication = isset( $resume['publication'] ) ? $resume['publication'] : array();
+
+		if ( empty( $resume_publication ) ) {
+			return false;
+		}
+
+		do_action( 'cbxresume_details_publication_start', $resume_data );
+		?>
+
+        <h3><?php echo esc_html__( 'Publication', 'cbxresume' ); ?></h3>
+        <ul>
 			<?php
-			$resume_publication = isset( $resume['publication'] ) ? $resume['publication'] : array();
 
 			foreach ( $resume_publication as $publication ) {
 				?>
-				<li><?php esc_html_e( $publication['title'] ) ?></li>
-				<li><?php esc_html_e( $publication['publisher'] ) ?></li>
-				<li><?php esc_html_e( $publication['year'] ) ?></li>
-				<li><?php esc_html_e( $publication['month'] ) ?></li>
-				<li><?php esc_html_e( $publication['day'] ) ?></li>
-				<li><?php esc_html_e( $publication['writter'] ) ?></li>
-				<li><?php esc_html_e( $publication['publication_url'] ) ?></li>
-				<li><?php esc_html_e( $publication['description'] ) ?></li>
+                <li><?php esc_html_e( $publication['title'] ) ?></li>
+                <li><?php esc_html_e( $publication['publisher'] ) ?></li>
+                <li><?php esc_html_e( $publication['year'] ) ?></li>
+                <li><?php esc_html_e( $publication['month'] ) ?></li>
+                <li><?php esc_html_e( $publication['day'] ) ?></li>
+                <li><?php esc_html_e( $publication['writter'] ) ?></li>
+                <li><?php esc_html_e( $publication['publication_url'] ) ?></li>
+                <li><?php esc_html_e( $publication['description'] ) ?></li>
 			<?php } ?>
-		</ul>
+        </ul>
 
 		<?php do_action( 'cbxresume_details_publication_end', $resume_data ); ?>
-	</div>
+    </div>
 <?php do_action( 'cbxresume_details_publication_after', $resume_data ); ?>

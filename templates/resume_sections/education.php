@@ -17,11 +17,18 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_education_before', $resume_data ); ?>
     <div class="cbxresume_details_education">
-		<?php do_action( 'cbxresume_details_education_start', $resume_data ); ?>
+		<?php
+		$resume_education = isset( $resume['education'] ) ? $resume['education'] : array();
+
+		if ( empty( $resume_education ) ) {
+			return false;
+		}
+
+		do_action( 'cbxresume_details_education_start', $resume_data );
+		?>
         <h3><?php echo esc_html__( 'Education', 'cbxresume' ); ?></h3>
 
 		<?php
-		$resume_education = isset( $resume['education'] ) ? $resume['education'] : array();
 
 		foreach ( $resume_education as $education ) {
 			?>

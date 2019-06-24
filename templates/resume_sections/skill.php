@@ -17,12 +17,21 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_skill_before', $resume_data ); ?>
     <div class="cbxresume_details_skill">
-		<?php do_action( 'cbxresume_details_skill_start', $resume_data ); ?>
+		<?php
+		$resume_skill = isset( $resume['skill'] ) ? $resume['skill'] : array();
+
+		if ( empty( $resume_skill ) ) {
+			return false;
+		}
+
+		do_action( 'cbxresume_details_skill_start', $resume_data );
+
+		?>
 
         <h3><?php echo esc_html__( 'Skill', 'cbxresume' ); ?></h3>
         <ul>
 			<?php
-			$resume_skill = isset( $resume['skill'] ) ? $resume['skill'] : array();
+
 
 			foreach ( $resume_skill as $skill ) {
 				?>

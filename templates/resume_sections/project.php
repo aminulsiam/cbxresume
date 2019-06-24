@@ -17,12 +17,22 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_project_before', $resume_data ); ?>
 	<div class="cbxresume_details_project">
-		<?php do_action( 'cbxresume_details_project_start', $resume_data ); ?>
+		<?php
+
+		$resume_project = isset( $resume['project'] ) ? $resume['project'] : array();
+
+        if(empty($resume_project)){
+            return false;
+        }
+
+        do_action( 'cbxresume_details_project_start', $resume_data );
+
+        ?>
 
 		<h3><?php echo esc_html__( 'Project', 'cbxresume' ); ?></h3>
 		<ul>
 			<?php
-			$resume_project = isset( $resume['project'] ) ? $resume['project'] : array();
+
 
 			foreach ( $resume_project as $project ) {
 				?>

@@ -833,22 +833,34 @@ class CBXResumeHelper {
 		?>
         <div class="cbxresume_details_wrap">
 
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/education.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/experience.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/language.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/license.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/volunteer.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/skill.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/publication.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/course.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/project.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/honors_awards.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/test_score.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/organization.php'; ?>
-			<?php include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/patents.php'; ?>
+			<?php
+
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/education.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/experience.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/language.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/license.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/volunteer.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/skill.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/publication.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/course.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/project.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/honors_awards.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/test_score.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/organization.php';
+			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/patents.php';
+
+			?>
 
         </div>
 
 		<?php
 	}// end method displayResumeHtml
+
+
+	public static function resumeSectionIncludeFiles( $resume_data, $resume, $template_path ) {
+
+
+	}//end method resumeSectionIncludeFiles
+
+
 }//end class CBXResumeHelper

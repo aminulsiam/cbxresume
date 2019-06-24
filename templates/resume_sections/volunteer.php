@@ -16,25 +16,33 @@ if ( ! defined( 'WPINC' ) ) {
 }
 ?>
 <?php do_action( 'cbxresume_details_volunteer_before', $resume_data ); ?>
-	<div class="cbxresume_details_volunteer">
-		<?php do_action( 'cbxresume_details_volunteer_start', $resume_data ); ?>
+    <div class="cbxresume_details_volunteer">
+		<?php
+		$resume_volunteer = isset( $resume['volunteer'] ) ? $resume['volunteer'] : array();
 
-		<h3><?php echo esc_html__( 'Volunteer', 'cbxresume' ); ?></h3>
-		<ul>
+		if(empty($resume_volunteer)){
+		    return false;
+        }
+
+
+        do_action( 'cbxresume_details_volunteer_start', $resume_data );
+
+        ?>
+
+        <h3><?php echo esc_html__( 'Volunteer', 'cbxresume' ); ?></h3>
+        <ul>
 			<?php
-			$resume_volunteer = isset( $resume['volunteer'] ) ? $resume['volunteer'] : array();
-
 			foreach ( $resume_volunteer as $volunteer ) {
 				?>
-				<li><?php esc_html_e( $volunteer['organization'] ) ?></li>
-				<li><?php esc_html_e( $volunteer['role'] ) ?></li>
-				<li><?php esc_html_e( $volunteer['cause'] ) ?></li>
-				<li><?php esc_html_e( $volunteer['from'] ) ?></li>
-				<li><?php esc_html_e( $volunteer['to'] ) ?></li>
-				<li><?php esc_html_e( $volunteer['description'] ) ?></li>
+                <li><?php esc_html_e( $volunteer['organization'] ) ?></li>
+                <li><?php esc_html_e( $volunteer['role'] ) ?></li>
+                <li><?php esc_html_e( $volunteer['cause'] ) ?></li>
+                <li><?php esc_html_e( $volunteer['from'] ) ?></li>
+                <li><?php esc_html_e( $volunteer['to'] ) ?></li>
+                <li><?php esc_html_e( $volunteer['description'] ) ?></li>
 			<?php } ?>
-		</ul>
+        </ul>
 
 		<?php do_action( 'cbxresume_details_volunteer_end', $resume_data ); ?>
-	</div>
+    </div>
 <?php do_action( 'cbxresume_details_volunteer_after', $resume_data ); ?>

@@ -17,12 +17,20 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_honor_award_before', $resume_data ); ?>
 	<div class="cbxresume_details_honor_award">
-		<?php do_action( 'cbxresume_details_honor_award_start', $resume_data ); ?>
+		<?php
+
+		$resume_honors = isset( $resume['honor_award'] ) ? $resume['honor_award'] : array();
+
+		if(empty($resume_honors)){
+		    return false;
+        }
+
+        do_action( 'cbxresume_details_honor_award_start', $resume_data );
+        ?>
 
 		<h3><?php echo esc_html__( 'Honors & Awards', 'cbxresume' ); ?></h3>
 		<ul>
 			<?php
-			$resume_honors = isset( $resume['honor_award'] ) ? $resume['honor_award'] : array();
 
 			foreach ( $resume_honors as $honor ) {
 				?>

@@ -17,13 +17,21 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_course_before', $resume_data ); ?>
 	<div class="cbxresume_details_course">
-		<?php do_action( 'cbxresume_details_course_start', $resume_data ); ?>
+		<?php
+
+		$resume_course = isset( $resume['course'] ) ? $resume['course'] : array();
+
+		if(empty($resume_course)){
+		    return false;
+        }
+
+        do_action( 'cbxresume_details_course_start', $resume_data );
+
+        ?>
 
 		<h3><?php echo esc_html__( 'Course', 'cbxresume' ); ?></h3>
 		<ul>
 			<?php
-			$resume_course = isset( $resume['course'] ) ? $resume['course'] : array();
-
 			foreach ( $resume_course as $course ) {
 				?>
 				<li><?php esc_html_e( $course['name'] ) ?></li>

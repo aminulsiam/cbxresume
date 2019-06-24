@@ -17,13 +17,19 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <?php do_action( 'cbxresume_details_license_before', $resume_data ); ?>
 	<div class="cbxresume_details_license">
-		<?php do_action( 'cbxresume_details_license_start', $resume_data ); ?>
+		<?php
+		$resume_license = isset( $resume['license'] ) ? $resume['license'] : array();
+
+		if(empty($resume_license)){
+		    return false;
+        }
+
+        do_action( 'cbxresume_details_license_start', $resume_data );
+        ?>
 
 		<h3><?php echo esc_html__( 'License', 'cbxresume' ); ?></h3>
 		<ul>
 			<?php
-			$resume_license = isset( $resume['license'] ) ? $resume['license'] : array();
-
 			foreach ( $resume_license as $license ) {
 				?>
 				<li><?php esc_html_e( $license['name'] ) ?></li>
