@@ -39,7 +39,7 @@ if ( isset( $_GET['id'] ) && intval( $_GET['id'] ) > 0 ) {
 
 	$resume_id = absint( $_GET['id'] );
 
-	$resume_data = CBXResumeHelper::getResumeData( $resume_id );
+	$resume_data = CBXResumeHelper::getResumeData( $resume_id, '' );
 
 	$resumes = maybe_unserialize( $resume_data['resume'] );
 
@@ -122,48 +122,45 @@ if ( sizeof( $invalid_fields ) > 0 ) {
 
 										<?php
 										include_once CBXRESUME_ROOT_PATH
-                                                     .'templates/admin/resume_edit_sections/education.php';
+										             . 'templates/admin/resume_edit_sections/education.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/experience.php';
+										             . 'templates/admin/resume_edit_sections/experience.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/language.php';
+										             . 'templates/admin/resume_edit_sections/language.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/license.php';
+										             . 'templates/admin/resume_edit_sections/license.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/volunteer.php';
+										             . 'templates/admin/resume_edit_sections/volunteer.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/skill.php';
+										             . 'templates/admin/resume_edit_sections/skill.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/publication.php';
+										             . 'templates/admin/resume_edit_sections/publication.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/course.php';
+										             . 'templates/admin/resume_edit_sections/course.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/project.php';
+										             . 'templates/admin/resume_edit_sections/project.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/honors_awards.php';
+										             . 'templates/admin/resume_edit_sections/honors_awards.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/test_score.php';
+										             . 'templates/admin/resume_edit_sections/test_score.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/organization.php';
+										             . 'templates/admin/resume_edit_sections/organization.php';
 
 										include_once CBXRESUME_ROOT_PATH
-										             .'templates/admin/resume_edit_sections/patents.php';
-
+										             . 'templates/admin/resume_edit_sections/patents.php';
 
 										?>
-
-
 
                                     </div> <!-- end main section -->
 

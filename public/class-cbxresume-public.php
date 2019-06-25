@@ -56,7 +56,8 @@ class CBXResume_Public {
 		$this->version     = $version;
 
 		$this->setting = new CBXResumeSettings();
-	}//end
+	}
+
 
 	/**
 	 *
@@ -84,23 +85,22 @@ class CBXResume_Public {
 	public function cbxresume_shortcode( $atts ) {
 
 		$atts = shortcode_atts( array(
-			'id' => '',
+			'id'       => '',
+			'sections' => '',
 		), $atts, 'cbxresume' );
-
 
 		$id = intval( $atts['id'] );
 
-		$resume_data = CBXResumeHelper::getResumeData( $id );
+		$sections =  explode(',',$atts['sections']);
+
+		$resume_data = CBXResumeHelper::getResumeData( $id, $atts['sections'] );
 
 		if ( $resume_data !== null ) {
-			return CBXResumeHelper::displayResumeHtml( $resume_data );
+			return CBXResumeHelper::displayResumeHtml( $resume_data, $sections );
 		} else {
 			return '';
 		}
 	}//end method cbxresume_shortcode
-
-
-
 
 
 	/**

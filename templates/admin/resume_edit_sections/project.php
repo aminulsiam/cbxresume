@@ -76,6 +76,12 @@ if ( ! is_array( $resume_project ) ) {
 
                     <input type="text"
                            name="cbxresume[project][<?php echo
+	                       esc_attr( $key ); ?>][writter]"
+                           value="<?php echo esc_attr__(
+		                       $project['writter'] ); ?>"/>
+
+                    <input type="text"
+                           name="cbxresume[project][<?php echo
 					       esc_attr( $key ); ?>][associated_with]"
                            value="<?php echo esc_attr__(
 						       $project['associated_with'] ); ?>"/>

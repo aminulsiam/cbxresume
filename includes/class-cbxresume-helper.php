@@ -95,20 +95,29 @@ class CBXResumeHelper {
 	 *
 	 * @return mixed
 	 */
-	public static function getResumeData( $id ) {
+	public static function getResumeData( $id, $sections ) {
 		global $wpdb;
 
 		$resume_table = $wpdb->prefix . "cbxresumes";
 
 		$resume = null;
 
-		if ( $id == 0 & is_user_logged_in() ) {
+		if ( ! empty( $sections ) && is_array( $sections ) ) {
 
-			$resume = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE add_by=%d ORDER BY id DESC
- lIMIT 1", get_current_user_id() ), 'ARRAY_A' );;
+			$resume = $wpdb->get_row( "SELECT * FROM $resume_table", ARRAY_A );
 
 			return $resume;
 		}
+
+
+		if ( $id == 0 & is_user_logged_in() ) {
+
+			$resume = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE add_by=%d ORDER BY id DESC
+ lIMIT 1", get_current_user_id() ), 'ARRAY_A' );
+
+			return $resume;
+		}
+
 
 		//Get the data for update resume by indivisual id
 		$resume = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE id=%d", $id ),
@@ -826,28 +835,36 @@ class CBXResumeHelper {
 	 *
 	 * @param $cbxresume_data
 	 */
-	public static function displayResumeHtml( $resume_data ) {
+	public static function displayResumeHtml( $resume_data, $sections ) {
 
 		$resume = isset( $resume_data['resume'] ) ? maybe_unserialize( $resume_data['resume'] ) : array();
+
+		$sections = array_filter( $sections );
 
 		?>
         <div class="cbxresume_details_wrap">
 
 			<?php
 
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/education.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/experience.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/language.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/license.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/volunteer.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/skill.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/publication.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/course.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/project.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/honors_awards.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/test_score.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/organization.php';
-			include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/patents.php';
+			if ( ! empty( $sections ) && is_array( $sections ) && sizeof( $sections ) > 0 ) {
+				foreach ( $sections as $section ) {
+					include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/' . $section . '.php';
+				}
+			} else {
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/education.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/experience.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/language.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/license.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/volunteer.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/skill.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/publication.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/course.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/project.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/honors_awards.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/test_score.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/organization.php';
+				include_once CBXRESUME_ROOT_PATH . 'templates/resume_sections/patents.php';
+			}
 
 			?>
 
@@ -857,10 +874,31 @@ class CBXResumeHelper {
 	}// end method displayResumeHtml
 
 
-	public static function resumeSectionIncludeFiles( $resume_data, $resume, $template_path ) {
+	/**
+	 * Get the all sections of resume.
+	 *
+	 * @return array
+	 */
+	public static function getAllResumeSections() {
 
+		$sections = array(
+			'education'     => esc_html__( 'Education', 'cbxresume' ),
+			'experience'    => esc_html__( 'Experience', 'cbxresume' ),
+			'language'      => esc_html__( 'Language', 'cbxresume' ),
+			'license'       => esc_html__( 'License', 'cbxresume' ),
+			'volunteer'     => esc_html__( 'Volunteer', 'cbxresume' ),
+			'skill'         => esc_html__( 'Skill', 'cbxresume' ),
+			'publication'   => esc_html__( 'Publication', 'cbxresume' ),
+			'course'        => esc_html__( 'Course', 'cbxresume' ),
+			'project'       => esc_html__( 'Project', 'cbxresume' ),
+			'honors_awards' => esc_html__( 'Honors & Awards', 'cbxresume' ),
+			'test_score'    => esc_html__( 'Test score', 'cbxresume' ),
+			'organization'  => esc_html__( 'Organization', 'cbxresume' ),
+			'patents'       => esc_html__( 'Patents', 'cbxresume' ),
+		);
 
-	}//end method resumeSectionIncludeFiles
+		return apply_filters( 'cbxresume_sections', $sections );
+	}//end method getAllResumeSections
 
 
 }//end class CBXResumeHelper

@@ -267,6 +267,8 @@ class CBXResume {
 		$this->loader->add_action( 'init', $plugin_public, 'init_shortcode' );
 
 
+		$this->loader->add_filter('cbxresume_sections',$plugin_public,'init_filter');
+
 	}// end of define_public_hooks methods
 
 	/**
