@@ -104,9 +104,11 @@ class CBXResumeHelper {
 
 		if ( ! empty( $sections ) && is_array( $sections ) ) {
 
-			$resume = $wpdb->get_row( "SELECT * FROM $resume_table", ARRAY_A );
+			$resume = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $resume_table WHERE add_by=%d ORDER BY id ASC 
+ lIMIT 1", get_current_user_id() ), 'ARRAY_A' );
 
 			return $resume;
+
 		}
 
 
@@ -839,7 +841,7 @@ class CBXResumeHelper {
 
 		$resume = isset( $resume_data['resume'] ) ? maybe_unserialize( $resume_data['resume'] ) : array();
 
-		$sections = array_filter( $sections );
+		//$sections = array_filter( $sections );
 
 		?>
         <div class="cbxresume_details_wrap">

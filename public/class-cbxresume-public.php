@@ -93,7 +93,7 @@ class CBXResume_Public {
 
 		$sections =  explode(',',$atts['sections']);
 
-		$resume_data = CBXResumeHelper::getResumeData( $id, $atts['sections'] );
+		$resume_data = CBXResumeHelper::getResumeData( $id, $sections );
 
 		if ( $resume_data !== null ) {
 			return CBXResumeHelper::displayResumeHtml( $resume_data, $sections );
